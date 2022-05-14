@@ -1,0 +1,11 @@
+{
+  "name": "@leo/blog",
+  "version": "0.0.1",
+  "scripts": {
+    "serve": "nodemon",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@leo/http": "^0.0.1"
+  }
+}

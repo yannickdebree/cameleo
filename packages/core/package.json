@@ -4,6 +4,6 @@
   "main": "lib/main.js",
   "typings": "lib/main.d.ts",
   "scripts": {
-    "tsc": "tsc"
+    "build": "tsc"
   }
 }
