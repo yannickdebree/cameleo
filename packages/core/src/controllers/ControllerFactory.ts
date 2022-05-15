@@ -1,4 +1,4 @@
-import { Container, Injectable, UnknowInjectableError } from "../di";
+import { Container, Injectable } from "../di";
 import { Controller } from "./Controller";
 
 @Injectable()
@@ -12,11 +12,7 @@ export class ControllerFactory {
         try {
             controllerInstance = this.container.get(controllerClass);
         } catch (err) {
-            if (err instanceof UnknowInjectableError) {
-                controllerInstance = new controllerClass();
-            } else {
-                throw err;
-            }
+            controllerInstance = new controllerClass();
         }
         return controllerInstance;
     }
