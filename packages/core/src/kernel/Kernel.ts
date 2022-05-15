@@ -1,3 +1,5 @@
+import { readdir } from 'fs/promises';
+import { join } from 'path';
 import 'reflect-metadata';
 import { Connexion } from '../Connexion';
 import { Controller, EndpointScopeFactory } from '../controllers';
@@ -6,7 +8,7 @@ import { Logger } from "../Logger";
 import { KernelConfiguration } from './KernelConfiguration';
 
 interface KernelConstructor {
-    readonly controllers: Controller<unknown>[];
+    controllersDirectory: string;
 }
 
 @Injectable()
@@ -21,11 +23,11 @@ export class Kernel {
         this.logger.info('Kernel created.')
     }
 
-    static create(configuration?: Partial<KernelConstructor>) {
+    static async create(configuration?: Partial<KernelConstructor>) {
         const container = new Container(Date.now().toString());
         container.set(Container, container);
         const kernel = container.get(Kernel);
-        kernel.setConfiguration(configuration);
+        await kernel.setConfiguration(configuration);
         return kernel;
     }
 
@@ -35,15 +37,27 @@ export class Kernel {
         }
     }
 
-    private setConfiguration(configuration?: Partial<KernelConstructor>) {
+    private async setConfiguration(configuration?: Partial<KernelConstructor>) {
         this.configuration = {
             endpointScopes: []
         };
 
-        if (configuration?.controllers?.length) {
-            configuration.controllers.forEach(controllerClass => {
-                this.configuration?.endpointScopes.push(...this.endpointScopeFactory.fromControllerClass(controllerClass));
-            });
-        }
+        const controllersDirectory = configuration?.controllersDirectory || join(process.cwd(), 'src/controllers');
+
+        const controllerModulesNames = await readdir(controllersDirectory)
+            .then(
+                controllerModulesNames =>
+                    controllerModulesNames
+                        .filter(
+                            controllerModuleName => /^(?!.*\.d\.tsx?$).*\.ts?$/g.test(controllerModuleName)
+                        )
+                        .map(controllerModuleName => controllerModuleName.split('.ts')[0])
+            );
+
+        await Promise.all(controllerModulesNames.map(async controllerModuleName => {
+            const module = await import(join(controllersDirectory, `${controllerModuleName}.ts`));
+            const controller = module[controllerModuleName] as Controller<any>;
+            this.configuration?.endpointScopes.push(...this.endpointScopeFactory.fromControllerClass(controller))
+        }));
     }
 }

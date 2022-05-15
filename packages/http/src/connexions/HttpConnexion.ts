@@ -28,12 +28,12 @@ export class HttpConnexion implements Connexion {
 
         container.set(TemplateEngine as any, this.configuration.templateEngine);
 
+        routesResolver.resolve(configuration.endpointScopes);
+
         if (!isInProduction()) {
             const endpointScopes = endpointScopeFactory.fromControllerClass(DeveloperPagesController)
             routesResolver.resolve(endpointScopes);
         }
-
-        routesResolver.resolve(configuration.endpointScopes);
 
         return new HttpConnexionHandler(logger, mainMiddleware).handle(this.configuration);
     }

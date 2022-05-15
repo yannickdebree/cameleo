@@ -1,19 +1,16 @@
-import { Response } from "@leo/http";
+import { Get, Response } from "@leo/http";
+import { FakeArticlesRepository } from "../repositories";
 // import { ID } from "../domain/ID";
 // import { FakeArticlesRepository } from "../repositories";
 
 export class BlogController {
-    //     private articlesRepository = new FakeArticlesRepository()
+    private articlesRepository = new FakeArticlesRepository()
 
-    index() {
-        return new Response({ status: 200, body: 'Hello world' })
+    @Get()
+    async findAll() {
+        const articles = await this.articlesRepository.findAll();
+        return new Response({ status: 200, body: articles })
     }
-
-    //     @Get()
-    //     async findAll() {
-    //         const articles = await this.articlesRepository.findAll();
-    //         return new Response({ status: 200, body: articles })
-    //     }
 
     //     @Get(":id")
     //     async findOne() {

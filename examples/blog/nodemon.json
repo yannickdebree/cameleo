@@ -4,5 +4,5 @@
         "src"
     ],
     "ext": "ts",
-    "exec": "yarn build && yarn start"
+    "exec": "ts-node src/main.ts"
 }

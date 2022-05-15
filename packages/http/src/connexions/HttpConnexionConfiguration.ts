@@ -1,4 +1,4 @@
-import { TemplateEngine } from "../TemplateEngine";
+import { TemplateEngine } from "../templates";
 
 export interface HttpConnexionConfiguration {
     port: number;
