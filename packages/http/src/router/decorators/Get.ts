@@ -1,6 +1,6 @@
 import { getMetadata, setMetadata } from "@leo/core";
-import { ROUTES_DEFINITIONS } from "../metadata";
-import { RouteDefinition } from "./RouteDefinition";
+import { ROUTES_DEFINITIONS } from "../../metadata";
+import { RouteDefinition } from "../RouteDefinition";
 
 export function Get(path = "/"): MethodDecorator {
     return function (target, propertyKey) {

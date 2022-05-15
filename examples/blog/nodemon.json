@@ -1,11 +1,7 @@
 {
     "verbose": true,
     "watch": [
-        "src",
-        "../../packages/*/**/*.ts"
-    ],
-    "ignore": [
-        "../../packages/*/**/*.d.ts"
+        "src"
     ],
     "ext": "ts",
     "exec": "yarn build && yarn start"

@@ -18,6 +18,12 @@ export class Router {
     }
 
     getRouteByRequest(request: Request) {
-        return this.routes.find(route => route.routeDefinition.path === request.getUrl()?.pathname);;
+        let route = this.routes.find(route => route.routeDefinition.path === request.getUrl()?.pathname);;
+
+        if (!route) {
+            route = this.routes.find(route => route.routeDefinition.path === "/*")
+        }
+
+        return route;
     }
 }

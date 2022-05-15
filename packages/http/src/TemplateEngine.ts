@@ -7,7 +7,7 @@ interface TemplateEngineConstructorOptions {
 }
 
 interface TemplateEngineRenderingOptions {
-    status: number;
+    status?: number;
 }
 
 export class TemplateEngine {

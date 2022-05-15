@@ -4,5 +4,5 @@
         "src"
     ],
     "ext": "ts",
-    "exec": "tsc"
+    "exec": "yarn build"
 }

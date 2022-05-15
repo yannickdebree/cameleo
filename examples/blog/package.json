@@ -7,6 +7,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@leo/core": "^0.0.1",
     "@leo/http": "^0.0.1"
   },
   "devDependencies": {

@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && mkdir -p ./lib/devmode/views && cp ./src/devmode/views/*.ejs ./lib/devmode/views",
     "build:watch": "nodemon"
   },
   "dependencies": {

@@ -1,6 +1,8 @@
-import { Get } from "../router";
+import { Injectable } from "@leo/core";
+import { Get, NotFound } from "../router";
 import { TemplateEngine } from "../TemplateEngine";
 
+@Injectable()
 export class DeveloperPagesController {
     constructor(
         private templateEngine: TemplateEngine
@@ -11,7 +13,7 @@ export class DeveloperPagesController {
         return this.templateEngine.render('welcome');
     }
 
-    @Get('test')
+    @NotFound
     error404() {
         return this.templateEngine.render('404', { status: 404 });
     }

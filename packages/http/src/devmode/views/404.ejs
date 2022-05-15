@@ -12,7 +12,7 @@ class MyController {
   
   @NotFound
   notFound(){
-    return this.templateEngine.render("404");
+    return this.templateEngine.render("name-of-your-404-error-page-template", { status: 404 });
   }
 }
 </pre>

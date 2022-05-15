@@ -1,3 +1,4 @@
+import { ServiceNotFoundError } from "typedi";
 import { Container, Injectable } from "../di";
 import { Controller } from "./Controller";
 import { EndpointScope } from "./EndpointScope";
@@ -9,7 +10,17 @@ export class EndpointScopeFactory {
     ) { }
 
     fromControllerClass<T>(controllerClass: Controller<T>): Array<EndpointScope<unknown>> {
-        const controllerInstance = this.container.has(controllerClass) ? this.container.get(controllerClass) : new controllerClass();
+        let controllerInstance: T;
+
+        try {
+            controllerInstance = this.container.get(controllerClass);
+        } catch (err) {
+            if (err instanceof ServiceNotFoundError) {
+                controllerInstance = new controllerClass();
+            } else {
+                throw err;
+            }
+        }
 
         const controllerMethodsNames = Object.getOwnPropertyNames(
             Object.getPrototypeOf(controllerInstance)
