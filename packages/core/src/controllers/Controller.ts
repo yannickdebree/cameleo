@@ -1,0 +1,1 @@
+export type Controller<T> = new (...args: any[]) => T;
