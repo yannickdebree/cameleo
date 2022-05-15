@@ -7,7 +7,7 @@ export class EjsTemplateEngine extends TemplateEngine {
         super({ ...options, extension: 'ejs' });
     }
 
-    renderFile(fileName: string): Promise<string> {
-        return renderFile(fileName);
+    renderFile(fileName: string, data?: any) {
+        return renderFile(fileName) as Promise<string>;
     }
 }

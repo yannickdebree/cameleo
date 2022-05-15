@@ -5,12 +5,17 @@ import { TemplateEngineConstructorOptions } from './TemplateEngineConstructorOpt
 
 interface TemplateEngineRenderingOptions {
     status?: number;
+    data?: any;
 }
 
 export abstract class TemplateEngine {
     constructor(private options: TemplateEngineConstructorOptions) { }
 
-    abstract renderFile(fileName: string): Promise<string>;
+    addViewsDirectory(viewDirectory: string) {
+        this.options.viewsDirectories.push(viewDirectory);
+    }
+
+    abstract renderFile(fileName: string, data?: any): Promise<string>;
 
     async render(view: string, options?: TemplateEngineRenderingOptions) {
         let fileName: string | undefined;
@@ -26,7 +31,7 @@ export abstract class TemplateEngine {
             throw new Error();
         }
 
-        const body = await this.renderFile(fileName);
+        const body = await this.renderFile(fileName, options?.data);
         return new Response({ status: options?.status || 200, body })
     }
 }

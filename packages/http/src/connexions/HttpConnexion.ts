@@ -16,17 +16,20 @@ export class HttpConnexion implements Connexion {
         const routesResolver = container.get(RoutesResolver);
         const endpointScopeFactory = container.get(EndpointScopeFactory);
 
+        const viewsDirectories = configuration.viewsDirectories || [];
+
         if (!this.configuration.templateEngine) {
-            const viewsDirectories = configuration.viewsDirectories || [];
-            if (!isInProduction()) {
-                viewsDirectories.push(join(__dirname, '../devmode/views'))
-            }
-            this.configuration.templateEngine = new EjsTemplateEngine({
-                viewsDirectories
-            });
+            this.configuration.templateEngine = new EjsTemplateEngine({ viewsDirectories });
+        }
+
+        if (!isInProduction()) {
+            this.configuration.templateEngine.addViewsDirectory(join(__dirname, '../devmode/views'));
         }
 
         container.set(TemplateEngine as any, this.configuration.templateEngine);
+
+        console.log(configuration.endpointScopes);
+
 
         routesResolver.resolve(configuration.endpointScopes);
 

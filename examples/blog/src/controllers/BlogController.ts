@@ -1,21 +1,28 @@
-import { Get, Response } from "@leo/http";
-import { FakeArticlesRepository } from "../repositories";
-// import { ID } from "../domain/ID";
-// import { FakeArticlesRepository } from "../repositories";
+import { Inject, Injectable } from "@leo/core";
+import { Get, TemplateEngine } from "@leo/http";
+import { ArticlesRepository } from "../domain";
+import { ARTICLES_REPOSITORY } from '../utils/providers';
 
+@Injectable()
 export class BlogController {
-    private articlesRepository = new FakeArticlesRepository()
+    constructor(
+        @Inject(ARTICLES_REPOSITORY)
+        private articlesRepository: ArticlesRepository,
+        private templateEngine: TemplateEngine
+    ) {
+        console.log(this);
+    }
 
     @Get()
     async findAll() {
-        const articles = await this.articlesRepository.findAll();
-        return new Response({ status: 200, body: articles })
+        const data = await this.articlesRepository.findAll();
+        return this.templateEngine.render('home', { data });
     }
 
-    //     @Get(":id")
-    //     async findOne() {
-    //         const id = new ID(0);
-    //         const article = await this.articlesRepository.findOne(id);
-    //         return new Response({ status: 200, body: article })
-    //     }
+    // @Get(":id")
+    // async findOne() {
+    //     const id = new ID(0);
+    //     const article = await this.articlesRepository.findOne(id);
+    //     return new Response({ status: 200, body: article })
+    // }
 }
