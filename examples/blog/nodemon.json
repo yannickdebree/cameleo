@@ -1,0 +1,9 @@
+{
+    "verbose": true,
+    "watch": [
+        "src",
+        "../../packages"
+    ],
+    "ext": "ts",
+    "exec": "yarn build && yarn start"
+}

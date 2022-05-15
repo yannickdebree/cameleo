@@ -4,6 +4,10 @@
   "main": "lib/main.js",
   "typings": "lib/main.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "nodemon"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }

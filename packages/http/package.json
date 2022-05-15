@@ -4,9 +4,11 @@
   "main": "lib/main.js",
   "typings": "lib/main.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "nodemon"
   },
   "dependencies": {
-    "@leo/core": "^0.0.1"
+    "@leo/core": "^0.0.1",
+    "nodemon": "^2.0.16"
   }
 }
