@@ -1,4 +1,4 @@
-import { renderFile } from "ejs";
+import { compile, renderFile } from "ejs";
 import { TemplateEngine } from "./TemplateEngine";
 import { TemplateEngineConstructorOptions } from "./TemplateEngineConstructorOptions";
 
@@ -8,6 +8,6 @@ export class EjsTemplateEngine extends TemplateEngine {
     }
 
     renderFile(fileName: string, data?: any) {
-        return renderFile(fileName) as Promise<string>;
+        return renderFile(fileName, data, {});
     }
 }

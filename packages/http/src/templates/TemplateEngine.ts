@@ -9,7 +9,18 @@ interface TemplateEngineRenderingOptions {
 }
 
 export abstract class TemplateEngine {
-    constructor(private options: TemplateEngineConstructorOptions) { }
+    public readonly options: TemplateEngineConstructorOptions;
+
+    constructor(options: TemplateEngineConstructorOptions) {
+        if (!options.errorPages) {
+            options.errorPages = {};
+        }
+
+        if (!options.errorPages.notFound) {
+            options.errorPages.notFound = '404'
+        }
+        this.options = options;
+    }
 
     addViewsDirectory(viewDirectory: string) {
         this.options.viewsDirectories.push(viewDirectory);

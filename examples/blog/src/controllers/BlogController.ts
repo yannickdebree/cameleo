@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@leo/core";
 import { Get, TemplateEngine } from "@leo/http";
-import { ArticlesRepository } from "../domain";
+import { ArticlesRepository, ID } from "../domain";
 import { ARTICLES_REPOSITORY } from '../utils/providers';
 
 @Injectable()
@@ -13,14 +13,13 @@ export class BlogController {
 
     @Get()
     async findAll() {
-        const data = await this.articlesRepository.findAll();
-        return this.templateEngine.render('home', { data });
+        const articles = await this.articlesRepository.findAll();
+        return this.templateEngine.render('articles', { data: { articles } });
     }
 
-    // @Get(":id")
-    // async findOne() {
-    //     const id = new ID(0);
-    //     const article = await this.articlesRepository.findOne(id);
-    //     return new Response({ status: 200, body: article })
-    // }
+    @Get(':id')
+    async findOne() {
+        const article = await this.articlesRepository.findOne(new ID(0));
+        return this.templateEngine.render('article', { data: { article } });
+    }
 }

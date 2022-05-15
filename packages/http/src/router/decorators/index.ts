@@ -1,2 +1,1 @@
-export * from './Get'
-export * from './NotFound'
+export * from './Get';

@@ -1,15 +1,17 @@
-import { Injectable, Logger, ControllerFactory } from "@leo/core";
+import { Container, ControllerFactory, Injectable, isInProduction, Logger } from "@leo/core";
 import { IncomingMessage, ServerResponse } from "http";
 import { Request } from "./Request";
 import { Response } from "./Response";
 import { Router } from "./router";
+import { TemplateEngine } from "./templates";
 
 @Injectable()
 export class MainMiddleware {
     constructor(
         private router: Router,
         private logger: Logger,
-        private controllerFactory: ControllerFactory
+        private controllerFactory: ControllerFactory,
+        private container: Container
     ) { }
 
     async resolve(message: IncomingMessage, serverResponse: ServerResponse) {
@@ -38,6 +40,14 @@ export class MainMiddleware {
             } catch (err) {
                 this.logger.error(err);
             }
+        }
+
+        if (!isInProduction() && response.status === 404) {
+            const templateEngine = this.container.get(TemplateEngine as any) as TemplateEngine;
+            if (!templateEngine.options.errorPages?.notFound) {
+                throw new Error();
+            }
+            response = await templateEngine.render(templateEngine.options.errorPages?.notFound);
         }
 
         serverResponse.statusCode = response.status;

@@ -1,0 +1,11 @@
+<%- include('_header'); -%>
+
+<h1>My articles</h1>
+
+<ul>
+    <% articles.forEach(article => { %>
+        <a href="<%=article.getId().value%>"><li><%= article.getTitle() %></li></a>
+    <% }); %>
+</ul>
+
+<%- include('_footer'); -%>
