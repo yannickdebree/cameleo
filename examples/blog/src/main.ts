@@ -1,4 +1,3 @@
-
 import { Kernel } from '@leo/core';
 import { EjsTemplateEngine, HttpConnexion } from '@leo/http';
 import { join } from 'path';
@@ -11,11 +10,10 @@ async function main() {
             [ARTICLES_REPOSITORY]: new FakeArticlesRepository()
         }
     });
-    kernel.open(new HttpConnexion({
+    await kernel.open(new HttpConnexion({
         port: 3000,
         templateEngine: new EjsTemplateEngine({ viewsDirectories: [join(__dirname, '../views')] })
     }));
-    await kernel.run();
 }
 
 main();

@@ -3,19 +3,19 @@ import { ROUTES_DEFINITIONS } from "../../metadata";
 import { RouteDefinition } from "../RouteDefinition";
 
 export function Get(path = "/"): MethodDecorator {
-    return function (target, propertyKey) {
+    return function ({ constructor }, propertyKey) {
         const tag = ROUTES_DEFINITIONS;
 
         const routesDefinitions = getMetadata({
             tag,
-            target,
+            constructor,
             propertyKey,
             defaultValue: new Array<RouteDefinition>()
         });
 
         setMetadata({
             tag,
-            target,
+            constructor,
             propertyKey, value: [...routesDefinitions, new RouteDefinition(path, 'GET')]
         })
     }

@@ -9,9 +9,7 @@ export class BlogController {
         @Inject(ARTICLES_REPOSITORY)
         private articlesRepository: ArticlesRepository,
         private templateEngine: TemplateEngine
-    ) {
-        console.log(this);
-    }
+    ) { }
 
     @Get()
     async findAll() {

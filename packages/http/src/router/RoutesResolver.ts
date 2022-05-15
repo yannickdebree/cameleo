@@ -11,18 +11,18 @@ export class RoutesResolver {
     ) { }
 
     resolve(endpoints: Array<EndpointScope<unknown>>) {
-        endpoints.forEach((middleware) => {
+        endpoints.forEach((endpoint) => {
             const routesDefinitions = getMetadata({
                 tag: ROUTES_DEFINITIONS,
-                target: middleware.instance,
-                propertyKey: middleware.methodName,
+                constructor: endpoint.type,
+                propertyKey: endpoint.methodName,
                 defaultValue: new Array<RouteDefinition>()
             }) as RouteDefinition[];
 
             if (!routesDefinitions.length) return;
 
             routesDefinitions.forEach(routeDefinition => {
-                const route = new Route(routeDefinition, middleware)
+                const route = new Route(routeDefinition, endpoint)
                 this.router.addRoute(route);
             });
         });

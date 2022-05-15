@@ -14,9 +14,7 @@ interface KernelConstructor {
 
 @Injectable()
 export class Kernel {
-    private a?: Partial<KernelConstructor>;
     private configuration?: KernelConfiguration;
-    private connexions = new Array<Connexion>();
 
     constructor(
         private logger: Logger,
@@ -30,22 +28,14 @@ export class Kernel {
         const container = new Container(Date.now().toString());
         container.set(Container, container);
         const kernel = container.get(Kernel);
-        kernel.a = configuration;
+        await kernel.setConfiguration(configuration);
         return kernel;
     }
 
     open(connexion: Connexion) {
-        this.connexions.push(connexion);
-    }
-
-    async run() {
-        await Promise.all(this.connexions.map(connexion => connexion.handle(this.container, this.configuration)))
-        this.connexions.forEach(connexion => {
-            if (!!this.configuration) {
-                connexion.handle(this.container, this.configuration);
-            }
-        })
-        await this.setConfiguration(this.a);
+        if (!!this.configuration) {
+            return connexion.handle(this.container, this.configuration);
+        }
     }
 
     private async setConfiguration(configuration?: Partial<KernelConstructor>) {

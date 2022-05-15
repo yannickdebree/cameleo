@@ -28,9 +28,6 @@ export class HttpConnexion implements Connexion {
 
         container.set(TemplateEngine as any, this.configuration.templateEngine);
 
-        console.log(configuration.endpointScopes);
-
-
         routesResolver.resolve(configuration.endpointScopes);
 
         if (!isInProduction()) {

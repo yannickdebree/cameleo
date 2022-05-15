@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@leo/core";
+import { Injectable, Logger, ControllerFactory } from "@leo/core";
 import { IncomingMessage, ServerResponse } from "http";
 import { Request } from "./Request";
 import { Response } from "./Response";
@@ -8,7 +8,8 @@ import { Router } from "./router";
 export class MainMiddleware {
     constructor(
         private router: Router,
-        private logger: Logger
+        private logger: Logger,
+        private controllerFactory: ControllerFactory
     ) { }
 
     async resolve(message: IncomingMessage, serverResponse: ServerResponse) {
@@ -24,7 +25,8 @@ export class MainMiddleware {
             }
 
             try {
-                const middleware = (route.middleware.instance as any)[route.middleware.methodName].bind(route.middleware.instance);
+                const instance = this.controllerFactory.getInstance(route.middleware.type) as any;
+                const middleware = instance[route.middleware.methodName].bind(instance);
 
                 const responseFromMiddleware = await middleware() as Response<unknown>;
 
