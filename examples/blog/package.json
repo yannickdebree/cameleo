@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "serve": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "echo \"No tests about this package\""
   },
   "dependencies": {
     "@leo/core": "^0.0.1",

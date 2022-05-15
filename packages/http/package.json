@@ -5,7 +5,8 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "tsc && mkdir -p ./lib/devmode/views && cp ./src/devmode/views/*.ejs ./lib/devmode/views",
-    "build:watch": "nodemon"
+    "build:watch": "nodemon",
+    "test": "echo \"No tests about this package\""
   },
   "dependencies": {
     "@leo/core": "^0.0.1",

@@ -1,16 +1,21 @@
 {
-  "name": "@leo/blog",
+  "name": "@leo/hello-world",
   "version": "0.0.1",
   "scripts": {
     "serve": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "dependencies": {
     "@leo/core": "^0.0.1",
     "@leo/http": "^0.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@types/supertest": "^2.0.12",
+    "jest": "^28.1.0",
     "nodemon": "^2.0.16",
+    "supertest": "^6.2.3",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   }

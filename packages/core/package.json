@@ -5,7 +5,8 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build:watch": "nodemon"
+    "build:watch": "nodemon",
+    "test": "echo \"No tests about this package\""
   },
   "devDependencies": {
     "@types/node": "^17.0.33",
