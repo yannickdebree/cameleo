@@ -3,7 +3,7 @@ import { join } from "path";
 import { DeveloperPagesController } from "../devmode";
 import { MainMiddleware } from "../MainMiddleware";
 import { RoutesResolver } from '../router';
-import { TemplateEngine } from "../TemplateEngine";
+import { EjsTemplateEngine, TemplateEngine } from "../templates";
 import { HttpConnexionConfiguration } from "./HttpConnexionConfiguration";
 import { HttpConnexionHandler } from "./HttpConnexionHandler";
 
@@ -21,12 +21,12 @@ export class HttpConnexion implements Connexion {
             if (!isInProduction()) {
                 viewsDirectories.push(join(__dirname, '../devmode/views'))
             }
-            this.configuration.templateEngine = new TemplateEngine({
+            this.configuration.templateEngine = new EjsTemplateEngine({
                 viewsDirectories
             });
-        }        
+        }
 
-        container.set(TemplateEngine, this.configuration.templateEngine);
+        container.set(TemplateEngine as any, this.configuration.templateEngine);
 
         if (!isInProduction()) {
             const endpointScopes = endpointScopeFactory.fromControllerClass(DeveloperPagesController)

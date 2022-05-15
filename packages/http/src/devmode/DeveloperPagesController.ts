@@ -1,6 +1,6 @@
 import { Injectable } from "@leo/core";
 import { Get, NotFound } from "../router";
-import { TemplateEngine } from "../TemplateEngine";
+import { TemplateEngine } from "../templates";
 
 @Injectable()
 export class DeveloperPagesController {
