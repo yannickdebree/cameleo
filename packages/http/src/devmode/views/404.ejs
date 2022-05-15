@@ -1,0 +1,19 @@
+<%- include('_header'); -%>
+<h1>Resource not found</h1>
+<p>This page is only visible in development mode.</p>
+<p>You can create your own 404 error page like this :</p>
+<pre>
+import { NotFound, Response } from '@leo/http';
+
+class MyController {
+  constructor(
+    private templateEngine: TemplateEngine
+  ){ }
+  
+  @NotFound
+  notFound(){
+    return this.templateEngine.render("404");
+  }
+}
+</pre>
+<%- include('_footer'); -%>

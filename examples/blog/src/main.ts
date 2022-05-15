@@ -1,5 +1,3 @@
-import { http } from '@leo/http';
+import { HttpConnexion } from '@leo/http'
 
-console.log("Hello !");
-
-http();
+console.log(new HttpConnexion({ port: 3000 }));

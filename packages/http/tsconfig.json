@@ -4,6 +4,10 @@
         "outDir": "./lib"
     },
     "include": [
-        "./src"
+        "src"
+    ],
+    "files": [
+        "*/**/*.ts",
+        "*/**/*.ejs",
     ]
 }

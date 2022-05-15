@@ -1,0 +1,15 @@
+<%- include('_header'); -%>
+<h1>Congratulations !</h1>
+<p>You created a Leo web application :)</p>
+<p>Now you can create your first route like this :</p>
+<pre>
+import { Get, Response } from '@leo/http';
+
+class MyController {
+  @Get()
+  hello(){
+    return new Response({ status: 200, body: 'Hello world !' })
+  }
+}
+</pre>
+<%- include('_footer'); -%>
