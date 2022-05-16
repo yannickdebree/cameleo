@@ -25,7 +25,7 @@ export class Kernel {
     }
 
     static async create(configuration?: Partial<KernelConstructor>) {
-        const container = new Container(Date.now().toString());
+        const container = new Container();
         container.set(Container, container);
         const kernel = container.get(Kernel);
         await kernel.setConfiguration(configuration);
@@ -49,20 +49,26 @@ export class Kernel {
             endpointScopes: []
         };
 
-        const controllersDirectory = configuration?.controllersDirectory || join(process.cwd(), 'src/controllers');
+        const mainFile = process.argv[1];
+        const mainFileSplited = mainFile.split('.')
+        const fileExtension = mainFileSplited[mainFileSplited.length - 1];
+
+        const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
+
+        const testFileExtensionRegex = new RegExp(`^(?!.*\.d\.tsx?$).*\.${fileExtension}?$`);
 
         const controllerModulesNames = await readdir(controllersDirectory)
             .then(
                 controllerModulesNames =>
                     controllerModulesNames
                         .filter(
-                            controllerModuleName => /^(?!.*\.d\.tsx?$).*\.ts?$/g.test(controllerModuleName)
+                            controllerModuleName => testFileExtensionRegex.test(controllerModuleName)
                         )
-                        .map(controllerModuleName => controllerModuleName.split('.ts')[0])
+                        .map(controllerModuleName => controllerModuleName.split(`.${fileExtension}`)[0])
             );
 
         await Promise.all(controllerModulesNames.map(async controllerModuleName => {
-            const module = await import(join(controllersDirectory, `${controllerModuleName}.ts`));
+            const module = await import(join(controllersDirectory, `${controllerModuleName}.${fileExtension}`));
             const controller = module[controllerModuleName] as Controller<any>;
             this.configuration?.endpointScopes.push(...this.endpointScopeFactory.fromControllerClass(controller))
         }));
