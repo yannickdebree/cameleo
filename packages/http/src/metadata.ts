@@ -1,1 +1,1 @@
-export const ROUTES_DEFINITIONS = 'leo:routes-definitions';
+export const ROUTES_DEFINITIONS = 'cameleo:routes-definitions';

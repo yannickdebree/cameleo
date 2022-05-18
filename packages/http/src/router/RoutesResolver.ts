@@ -1,4 +1,4 @@
-import { EndpointScope, getMetadata, Injectable } from "@leo/core";
+import { EndpointScope, getMetadata, Injectable } from "@cameleo/core";
 import { ROUTES_DEFINITIONS } from "../metadata";
 import { Route } from "./Route";
 import { RouteDefinition } from "./RouteDefinition";

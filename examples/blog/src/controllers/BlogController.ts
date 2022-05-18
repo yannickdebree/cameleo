@@ -1,5 +1,5 @@
-import { Inject, Injectable } from "@leo/core";
-import { Get, TemplateEngine } from "@leo/http";
+import { Inject, Injectable } from "@cameleo/core";
+import { Get, TemplateEngine } from "@cameleo/http";
 import { ArticlesRepository, ID } from "../domain";
 import { ARTICLES_REPOSITORY } from '../utils/providers';
 

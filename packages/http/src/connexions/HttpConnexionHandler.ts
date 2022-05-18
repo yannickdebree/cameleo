@@ -1,4 +1,4 @@
-import { Logger } from "@leo/core";
+import { Logger } from "@cameleo/core";
 import { createServer } from "http";
 import { MainMiddleware } from "../MainMiddleware";
 import { HttpConnexionConfiguration } from "./HttpConnexionConfiguration";

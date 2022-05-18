@@ -1,4 +1,4 @@
-import { Connexion, Container, ControllerFactory, getMetadata, KernelConfiguration } from "@leo/core";
+import { Connexion, Container, ControllerFactory, getMetadata, KernelConfiguration } from "@cameleo/core";
 import { Command } from "./Command";
 import { COMMAND } from "./metadata";
 

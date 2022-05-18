@@ -1,1 +1,1 @@
-export const COMMAND = "leo:command";
+export const COMMAND = "cameleo:command";

@@ -1,4 +1,4 @@
-import { Connexion, Container, EndpointScopeFactory, isInProduction, KernelConfiguration, Logger } from "@leo/core";
+import { Connexion, Container, EndpointScopeFactory, isInProduction, KernelConfiguration, Logger } from "@cameleo/core";
 import { join } from "path";
 import { DeveloperPagesController } from "../devmode";
 import { MainMiddleware } from "../MainMiddleware";

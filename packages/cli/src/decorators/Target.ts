@@ -1,4 +1,4 @@
-import { setMetadata } from "@leo/core";
+import { setMetadata } from "@cameleo/core";
 import { COMMAND } from "../metadata";
 
 export function Command(command = ""): MethodDecorator {

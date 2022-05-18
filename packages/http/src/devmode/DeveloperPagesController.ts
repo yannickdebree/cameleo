@@ -1,4 +1,4 @@
-import { Injectable } from "@leo/core";
+import { Injectable } from "@cameleo/core";
 import { Get } from "../router";
 import { TemplateEngine } from "../templates";
 

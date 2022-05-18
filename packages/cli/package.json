@@ -1,5 +1,5 @@
 {
-  "name": "@leo/cli",
+  "name": "@cameleo/cli",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,7 +9,7 @@
     "test": "echo \"No tests about this package\""
   },
   "dependencies": {
-    "@leo/core": "^0.0.1",
+    "@cameleo/core": "^0.0.1",
     "ejs": "^3.1.8",
     "nodemon": "^2.0.16"
   },

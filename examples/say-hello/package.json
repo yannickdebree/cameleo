@@ -1,14 +1,15 @@
 {
-  "name": "@leo/say-hello",
+  "name": "@cameleo/say-hello",
   "version": "0.0.1",
   "scripts": {
     "start": "ts-node src/main.ts",
     "build": "tsc",
-    "test": "echo \"No tests about this package\""
+    "test": "echo \"No tests about this package\"",
+    "publish": "echo \"No publish about this package\""
   },
   "dependencies": {
-    "@leo/cli": "^0.0.1",
-    "@leo/core": "^0.0.1"
+    "@cameleo/cli": "^0.0.1",
+    "@cameleo/core": "^0.0.1"
   },
   "devDependencies": {
     "ts-node": "^10.7.0",

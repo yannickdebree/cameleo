@@ -1,4 +1,4 @@
-import { Command } from "@leo/cli";
+import { Command } from "@cameleo/cli";
 
 export class SayHelloController {
     @Command()

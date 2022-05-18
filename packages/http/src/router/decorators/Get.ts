@@ -1,4 +1,4 @@
-import { getMetadata, setMetadata } from "@leo/core";
+import { getMetadata, setMetadata } from "@cameleo/core";
 import { ROUTES_DEFINITIONS } from "../../metadata";
 import { RouteDefinition } from "../RouteDefinition";
 

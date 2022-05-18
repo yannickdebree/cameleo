@@ -1,5 +1,5 @@
-import { CliConnexion } from '@leo/cli';
-import { Kernel } from '@leo/core';
+import { CliConnexion } from '@cameleo/cli';
+import { Kernel } from '@cameleo/core';
 
 async function main() {
     const kernel = await Kernel.create();

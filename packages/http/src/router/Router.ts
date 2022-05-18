@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@leo/core";
+import { Injectable, Logger } from "@cameleo/core";
 import { Request } from "../Request";
 import { Route } from "./Route";
 

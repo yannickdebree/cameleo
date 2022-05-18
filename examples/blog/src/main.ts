@@ -1,5 +1,5 @@
-import { Kernel } from '@leo/core';
-import { EjsTemplateEngine, HttpConnexion } from '@leo/http';
+import { Kernel } from '@cameleo/core';
+import { EjsTemplateEngine, HttpConnexion } from '@cameleo/http';
 import { join } from 'path';
 import { FakeArticlesRepository } from './repositories';
 import { ARTICLES_REPOSITORY } from './utils/providers';

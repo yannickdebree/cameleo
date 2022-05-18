@@ -1,4 +1,4 @@
-import { EndpointScope } from "@leo/core";
+import { EndpointScope } from "@cameleo/core";
 import { RouteDefinition } from "./RouteDefinition";
 
 export class Route<T> {

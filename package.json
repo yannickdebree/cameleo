@@ -1,5 +1,5 @@
 {
-  "name": "leo",
+  "name": "cameleo",
   "scripts": {
     "postinstall": "lerna bootstrap && lerna run build",
     "lerna": "lerna",
