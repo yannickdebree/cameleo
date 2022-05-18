@@ -1,6 +1,6 @@
 {
   "name": "@cameleo/blog",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "serve": "nodemon",
     "build": "tsc",
@@ -8,8 +8,8 @@
     "publish": "echo \"No publish about this package\""
   },
   "dependencies": {
-    "@cameleo/core": "^0.0.1",
-    "@cameleo/http": "^0.0.1"
+    "@cameleo/core": "^0.1.0",
+    "@cameleo/http": "^0.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16",

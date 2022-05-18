@@ -1,6 +1,6 @@
 {
   "name": "@cameleo/cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "echo \"No tests about this package\""
   },
   "dependencies": {
-    "@cameleo/core": "^0.0.1",
+    "@cameleo/core": "^0.1.0",
     "ejs": "^3.1.8",
     "nodemon": "^2.0.16"
   },

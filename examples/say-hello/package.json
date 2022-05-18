@@ -1,6 +1,6 @@
 {
   "name": "@cameleo/say-hello",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "start": "ts-node src/main.ts",
     "build": "tsc",
@@ -8,8 +8,8 @@
     "publish": "echo \"No publish about this package\""
   },
   "dependencies": {
-    "@cameleo/cli": "^0.0.1",
-    "@cameleo/core": "^0.0.1"
+    "@cameleo/cli": "^0.1.0",
+    "@cameleo/core": "^0.1.0"
   },
   "devDependencies": {
     "ts-node": "^10.7.0",
