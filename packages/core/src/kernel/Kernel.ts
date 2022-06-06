@@ -9,7 +9,7 @@ import { KernelConfiguration } from './KernelConfiguration';
 
 interface KernelConstructor {
     controllersDirectory?: string;
-    injectables: any;
+    injectables?: Object;
 }
 
 @Injectable()
@@ -17,11 +17,10 @@ export class Kernel {
     private configuration?: KernelConfiguration;
 
     constructor(
-        private logger: Logger,
         private container: Container,
-        private endpointScopeFactory: EndpointScopeFactory
     ) {
-        this.logger.info('Kernel created.')
+        const logger = container.get(Logger);
+        logger.info('Kernel created.')
     }
 
     static async create(configuration?: Partial<KernelConstructor>) {
@@ -41,7 +40,7 @@ export class Kernel {
     private async setConfiguration(configuration?: Partial<KernelConstructor>) {
         if (!!configuration?.injectables) {
             Object.keys(configuration?.injectables).forEach(injectableToken => {
-                this.container.set(injectableToken, configuration?.injectables[injectableToken])
+                this.container.set(injectableToken, (configuration?.injectables as any)[injectableToken])
             })
         }
 
@@ -49,28 +48,30 @@ export class Kernel {
             endpointScopes: []
         };
 
-        const mainFile = process.argv[1];
+        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : process.argv[1];
+
         const mainFileSplited = mainFile.split('.')
         const fileExtension = mainFileSplited[mainFileSplited.length - 1];
 
         const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
 
-        const testFileExtensionRegex = new RegExp(`^(?!.*\.d\.tsx?$).*\.${fileExtension}?$`);
+        const fileExtensionRegex = new RegExp(`^(?!.*\.d\.tsx?$).*\.${fileExtension}?$`);
 
         const controllerModulesNames = await readdir(controllersDirectory)
             .then(
                 controllerModulesNames =>
                     controllerModulesNames
                         .filter(
-                            controllerModuleName => testFileExtensionRegex.test(controllerModuleName)
+                            controllerModuleName => fileExtensionRegex.test(controllerModuleName)
                         )
                         .map(controllerModuleName => controllerModuleName.split(`.${fileExtension}`)[0])
             );
 
+        const endpointScopeFactory = this.container.get(EndpointScopeFactory)
         await Promise.all(controllerModulesNames.map(async controllerModuleName => {
             const module = await import(join(controllersDirectory, `${controllerModuleName}.${fileExtension}`));
             const controller = module[controllerModuleName] as Controller<any>;
-            this.configuration?.endpointScopes.push(...this.endpointScopeFactory.fromControllerClass(controller))
+            this.configuration?.endpointScopes.push(...endpointScopeFactory.fromControllerClass(controller))
         }));
     }
 }
