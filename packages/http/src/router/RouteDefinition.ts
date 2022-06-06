@@ -3,14 +3,14 @@ import { PathDefinition } from "./PathDefinition";
 type HttpMethod = 'GET';
 
 export class RouteDefinition {
-    public readonly path: string;
+    public readonly pathname: string;
     public readonly pathDefiniton: PathDefinition;
 
     constructor(
-        path: string,
+        pathname: string,
         public readonly method: HttpMethod
     ) {
-        this.path = path;
-        this.pathDefiniton = new PathDefinition(this.path);
+        this.pathname = pathname;
+        this.pathDefiniton = new PathDefinition(this.pathname);
     }
 }

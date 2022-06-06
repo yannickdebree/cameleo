@@ -8,10 +8,10 @@ interface PathPart {
 export class PathDefinition {
     public readonly parts = new Array<PathPart>();
 
-    constructor(path: string) {
-        const pathParts = path.split('/');
+    constructor(pathname: string) {
+        const pathParts = pathname.split('/');
 
-        pathParts.forEach(value => {
+        pathParts.filter((_, index) => index !== 0).forEach(value => {
             let type: PathPartType = 'term';
             if (value[0] === ":") {
                 type = 'param';

@@ -10,10 +10,12 @@ async function main() {
             [ARTICLES_REPOSITORY]: new FakeArticlesRepository()
         }
     });
-    await kernel.open(new HttpConnexion({
-        port: 3000,
-        templateEngine: new EjsTemplateEngine({ viewsDirectories: [join(__dirname, '../views')] })
-    }));
+    await kernel.open(
+        new HttpConnexion({
+            port: 3000,
+            templateEngine: new EjsTemplateEngine({ viewsDirectories: [join(__dirname, '../views')] })
+        })
+    );
 }
 
 main();

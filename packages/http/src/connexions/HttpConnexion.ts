@@ -16,10 +16,8 @@ export class HttpConnexion implements Connexion {
         const routesResolver = container.get(RoutesResolver);
         const endpointScopeFactory = container.get(EndpointScopeFactory);
 
-        const viewsDirectories = configuration.viewsDirectories || [];
-
         if (!this.configuration.templateEngine) {
-            this.configuration.templateEngine = new EjsTemplateEngine({ viewsDirectories });
+            this.configuration.templateEngine = new EjsTemplateEngine({ viewsDirectories: [] });
         }
 
         if (!isInProduction()) {

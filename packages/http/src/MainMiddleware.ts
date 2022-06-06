@@ -1,8 +1,9 @@
-import { Container, ControllerFactory, Injectable, isInProduction, Logger } from "@cameleo/core";
+import { Container, ControllerFactory, getMetadata, Injectable, isInProduction, Logger } from "@cameleo/core";
 import { IncomingMessage, ServerResponse } from "http";
+import { REQUEST_CALLBACKS } from "./metadata";
 import { Request } from "./Request";
 import { Response } from "./Response";
-import { Router } from "./router";
+import { RequestCallback, Router } from "./router";
 import { TemplateEngine } from "./templates";
 
 @Injectable()
@@ -30,7 +31,14 @@ export class MainMiddleware {
                 const instance = this.controllerFactory.getInstance(route.middleware.type) as any;
                 const middleware = instance[route.middleware.methodName].bind(instance);
 
-                const responseFromMiddleware = await middleware() as Response<unknown>;
+                const args = getMetadata({
+                    constructor: route.middleware.type,
+                    tag: REQUEST_CALLBACKS,
+                    propertyKey: route.middleware.methodName,
+                    defaultValue: new Array<RequestCallback>()
+                }).map(cb => cb(request));
+
+                const responseFromMiddleware = await middleware(...args) as Response<unknown>;
 
                 if (!responseFromMiddleware || !(responseFromMiddleware instanceof Response)) {
                     throw new Error();
@@ -47,7 +55,7 @@ export class MainMiddleware {
             if (!templateEngine.options.errorPages?.notFound) {
                 throw new Error();
             }
-            response = await templateEngine.render(templateEngine.options.errorPages?.notFound);
+            response = await templateEngine.render(templateEngine.options.errorPages?.notFound, { status: 404 });
         }
 
         serverResponse.statusCode = response.status;

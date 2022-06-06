@@ -11,10 +11,10 @@ export class Router {
     ) { }
 
     addRoute<T>(route: Route<T>) {
-        if (this.routes.find(r => r.routeDefinition.path === route.routeDefinition.path)) return;
+        if (this.routes.find(r => r.routeDefinition.pathname === route.routeDefinition.pathname)) return;
         this.routes.push(route);
-        const { routeDefinition: { method, path }, middleware: { type, methodName } } = route;
-        this.logger.info(`(${method}) /${path} : ${type.name}.${methodName}`)
+        const { routeDefinition: { method, pathname }, middleware: { type, methodName } } = route;
+        this.logger.info(`(${method}) ${pathname} : ${type.name}.${methodName}`)
     }
 
     getRouteByRequest(request: Request) {
@@ -23,27 +23,24 @@ export class Router {
                 const registredRouteParts = route.routeDefinition.pathDefiniton.parts;
                 const requestParts = request.pathDefinition.parts;
 
-                console.log(registredRouteParts.length !== requestParts.length);
+                const params: any = {};
 
                 if (registredRouteParts.length !== requestParts.length) {
                     return false;
                 }
 
                 for (let i = 0; i < registredRouteParts.length; i++) {
+                    const registredRoutePart = registredRouteParts[i];
                     const requestPart = requestParts[i];
 
-                    console.log('i : ', i);
-                    console.log(registredRouteParts[i]);
-                    console.log(requestPart);
-
-                    if (requestPart.type === "term" && registredRouteParts[i].value !== requestPart.value) {
+                    if (registredRoutePart.type === "term" && registredRoutePart.value !== requestPart.value) {
                         return false;
                     }
 
-                    if (requestPart.type === "param") {
-                        return true;
-                    }
+                    params[registredRoutePart.value.replace(':', '')] = requestPart.value;
                 }
+
+                request.setParams(params);
 
                 return true;
             });

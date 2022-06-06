@@ -16,7 +16,7 @@ export function Get(path = ""): MethodDecorator {
         setMetadata({
             tag,
             constructor,
-            propertyKey, value: [...routesDefinitions, new RouteDefinition(path, 'GET')]
+            propertyKey, value: [...routesDefinitions, new RouteDefinition(`/${path}`, 'GET')]
         })
     }
 }

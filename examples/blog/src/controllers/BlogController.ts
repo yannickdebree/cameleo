@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@cameleo/core";
-import { Get, TemplateEngine } from "@cameleo/http";
+import { Get, Param, Response, TemplateEngine } from "@cameleo/http";
 import { ArticlesRepository, ID } from "../domain";
 import { ARTICLES_REPOSITORY } from '../utils/providers';
 
@@ -18,8 +18,13 @@ export class BlogController {
     }
 
     @Get(':id')
-    async findOne() {
-        const article = await this.articlesRepository.findOne(new ID(0));
+    async findOne(
+        @Param('id') id: string
+    ) {
+        const article = await this.articlesRepository.findOne(new ID(+id));
+        if (!article) {
+            return new Response({ status: 404 })
+        }
         return this.templateEngine.render('article', { data: { article } });
     }
 }
