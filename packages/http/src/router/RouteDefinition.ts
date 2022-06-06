@@ -1,12 +1,16 @@
+import { PathDefinition } from "./PathDefinition";
+
 type HttpMethod = 'GET';
 
 export class RouteDefinition {
+    public readonly path: string;
+    public readonly pathDefiniton: PathDefinition;
+
     constructor(
-        public readonly path: string,
+        path: string,
         public readonly method: HttpMethod
     ) {
-        if (path[0] !== "/") {
-            this.path = ['/', ...path].join('');
-        }
+        this.path = path;
+        this.pathDefiniton = new PathDefinition(this.path);
     }
 }

@@ -2,7 +2,7 @@ import { getMetadata, setMetadata } from "@cameleo/core";
 import { ROUTES_DEFINITIONS } from "../../metadata";
 import { RouteDefinition } from "../RouteDefinition";
 
-export function Get(path = "/"): MethodDecorator {
+export function Get(path = ""): MethodDecorator {
     return function ({ constructor }, propertyKey) {
         const tag = ROUTES_DEFINITIONS;
 

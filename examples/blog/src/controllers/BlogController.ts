@@ -11,13 +11,13 @@ export class BlogController {
         private templateEngine: TemplateEngine
     ) { }
 
-    @Get()
+    // @Get()
     async findAll() {
         const articles = await this.articlesRepository.findAll();
         return this.templateEngine.render('articles', { data: { articles } });
     }
 
-    @Get(':id')
+    // @Get(':id')
     async findOne() {
         const article = await this.articlesRepository.findOne(new ID(0));
         return this.templateEngine.render('article', { data: { article } });

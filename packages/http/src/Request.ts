@@ -1,7 +1,12 @@
 import { IncomingMessage } from "http";
+import { PathDefinition } from "./router";
 
 export class Request {
-    private url?: URL;
+    public readonly pathDefinition: PathDefinition;
+
+    constructor(pathname: string) {
+        this.pathDefinition = new PathDefinition(pathname);
+    }
 
     static createFromGlobals(message: IncomingMessage) {
         if (!message.url) {
@@ -10,17 +15,6 @@ export class Request {
         const protocol = message.url.split('://')[0].includes('https') ? 'https' : 'http';
         const url = new URL(message.url, `${protocol}://${message.headers.host}`);
 
-        const request = new Request();
-        request.setUrl(url);
-
-        return request;
-    }
-
-    getUrl() {
-        return this.url;
-    }
-
-    setUrl(url: URL) {
-        this.url = url;
+        return new Request(url.pathname);
     }
 }

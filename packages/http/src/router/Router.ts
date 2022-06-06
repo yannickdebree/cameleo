@@ -14,16 +14,38 @@ export class Router {
         if (this.routes.find(r => r.routeDefinition.path === route.routeDefinition.path)) return;
         this.routes.push(route);
         const { routeDefinition: { method, path }, middleware: { type, methodName } } = route;
-        this.logger.info(`(${method}) ${path} : ${type.name}.${methodName}`)
+        this.logger.info(`(${method}) /${path} : ${type.name}.${methodName}`)
     }
 
     getRouteByRequest(request: Request) {
-        let route = this.routes.find(route => route.routeDefinition.path === request.getUrl()?.pathname);;
+        return this.routes
+            .find(route => {
+                const registredRouteParts = route.routeDefinition.pathDefiniton.parts;
+                const requestParts = request.pathDefinition.parts;
 
-        if (!route) {
-            route = this.routes.find(route => route.routeDefinition.path === "/*")
-        }
+                console.log(registredRouteParts.length !== requestParts.length);
 
-        return route;
+                if (registredRouteParts.length !== requestParts.length) {
+                    return false;
+                }
+
+                for (let i = 0; i < registredRouteParts.length; i++) {
+                    const requestPart = requestParts[i];
+
+                    console.log('i : ', i);
+                    console.log(registredRouteParts[i]);
+                    console.log(requestPart);
+
+                    if (requestPart.type === "term" && registredRouteParts[i].value !== requestPart.value) {
+                        return false;
+                    }
+
+                    if (requestPart.type === "param") {
+                        return true;
+                    }
+                }
+
+                return true;
+            });
     }
 }

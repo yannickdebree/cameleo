@@ -4,8 +4,9 @@ export class FakeArticlesRepository implements ArticlesRepository {
     private data = new Array<Article>();
 
     constructor() {
-        this.data.push(new Article().setId(new ID(this.data.length)).setTitle("My beautiful article").setContent("Lorem ipsum..."));
-        this.data.push(new Article().setId(new ID(this.data.length)).setTitle("My beautiful article").setContent("Lorem ipsum..."));
+        for (let i = 0; i < 10; ++i) {
+            this.data.push(new Article().setId(new ID(this.data.length)).setTitle(`My beautiful article ${i}`).setContent("Lorem ipsum..."));
+        }
     }
 
     save(article: Article) {
