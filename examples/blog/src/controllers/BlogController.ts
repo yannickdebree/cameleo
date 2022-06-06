@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@cameleo/core";
 import { Get, Param, Response, TemplateEngine } from "@cameleo/http";
-import { ArticlesRepository, ID } from "../domain";
+import { ArticlesRepository, ID, parseToID } from "../domain";
 import { ARTICLES_REPOSITORY } from '../utils/providers';
 
 @Injectable()
@@ -19,9 +19,9 @@ export class BlogController {
 
     @Get(':id')
     async findOne(
-        @Param('id') id: string
+        @Param('id', parseToID) id: ID
     ) {
-        const article = await this.articlesRepository.findOne(new ID(+id));
+        const article = await this.articlesRepository.findOne(id);
         if (!article) {
             return new Response({ status: 404 })
         }
