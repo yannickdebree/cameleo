@@ -1,25 +1,25 @@
-import { Command } from "@cameleo/cli";
+import { Cmd, Command } from "@cameleo/cli";
 
 export class SayHelloController {
-    @Command()
+    @Cmd()
     help() {
         return `You can control a robot and do speak it by using those commands :
     hi: The robot will say Hello.
     bye: The robot will say Bye.`;
     }
 
-    @Command("hi")
+    @Cmd("hi")
     hello() {
         return 'The robot says "Hello !"'
     }
 
-    @Command("bye")
+    @Cmd("bye")
     goodBye() {
         return 'The robot says "Good bye !"'
     }
 
-    @Command('*')
-    unknowCommand() {
-        return 'Unknow command: ...'
+    @Cmd('*')
+    unknowCommand(command: Command) {
+        return `Unknow command: ${command.keyword}`
     }
 }

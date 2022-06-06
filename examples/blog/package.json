@@ -5,7 +5,7 @@
     "serve": "nodemon",
     "build": "tsc",
     "test": "echo \"No tests about this package\"",
-    "publish": "echo \"No publish about this package\""
+    "publish": "exit 0"
   },
   "dependencies": {
     "@cameleo/core": "^0.1.0",

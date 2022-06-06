@@ -16,12 +16,15 @@ export class CliConnexion implements Connexion {
 
         const command = Command.createFromGlobals();
 
+        const cContainer = new Container();
+        cContainer.set(Command, command);
+
         const endpointScope = (() => {
-            if (!command.fisrtOption) {
+            if (!command.keyword) {
                 return endpointScopesRegistry.find(d => d.command === "")?.endpointScope;
             }
 
-            const endpointScopeFromCommand = endpointScopesRegistry.find(d => d.command === command.fisrtOption)?.endpointScope;
+            const endpointScopeFromCommand = endpointScopesRegistry.find(d => d.command === command.keyword)?.endpointScope;
 
             if (!endpointScopeFromCommand) {
                 return endpointScopesRegistry.find(d => d.command === "*")?.endpointScope;
@@ -35,7 +38,8 @@ export class CliConnexion implements Connexion {
                 return "";
             }
             const middleware = controllerFactory.getInstance(endpointScope.type);
-            return (middleware as any)[endpointScope.methodName].bind(middleware)();
+            const args = [command];
+            return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
         })();
 
         console.log(response);

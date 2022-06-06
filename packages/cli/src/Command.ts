@@ -1,10 +1,10 @@
 export class Command {
     constructor(
-        public readonly fisrtOption: string
+        public readonly keyword: string
     ) { }
 
     static createFromGlobals() {
-        const command = process.argv[2];
-        return new Command(command);
+        const keyword = process.argv[2];
+        return new Command(keyword);
     }
 }
