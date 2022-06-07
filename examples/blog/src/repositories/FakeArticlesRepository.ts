@@ -5,7 +5,7 @@ export class FakeArticlesRepository implements ArticlesRepository {
 
     constructor() {
         for (let i = 0; i < 10; ++i) {
-            this.data.push(new Article().setId(new ID(this.data.length)).setTitle(`My beautiful article ${i}`).setContent("Lorem ipsum..."));
+            this.data.push(new Article().setId(new ID(this.data.length)).setTitle(`My beautiful article ${i + 1}`).setContent("Lorem ipsum..."));
         }
     }
 
@@ -22,5 +22,23 @@ export class FakeArticlesRepository implements ArticlesRepository {
 
     findOne(id: ID) {
         return Promise.resolve(this.data.find(d => d.getId()?.isEquals(id)))
+    }
+
+    updateOne(article: Article) {
+        const articleId = article.getId();
+        if (!articleId) {
+            throw new Error();
+        }
+        this.data.forEach((d, index) => {
+            if (d.getId()?.isEquals(articleId)) {
+                this.data[index] = article;
+            }
+        });
+        return Promise.resolve();
+    }
+
+    removeOne(id: ID) {
+        this.data = this.data.filter(d => !d.getId()?.isEquals(id));
+        return Promise.resolve();
     }
 }

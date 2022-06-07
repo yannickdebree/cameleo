@@ -1,9 +1,24 @@
 <%- include('layout/header'); -%>
 
-<h1><%= article.getTitle() %></h1>
-<p><%= article.getContent() %></p>
+<form action="<%= article.getId().value %>/edit" method="post">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Enter title"
+        value="<%= article.getTitle() %>"
+      />
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" name="content" id="content" cols="30" rows="10"><%= article.getContent() %></textarea>
+    </div>
+    <button class="btn btn-info" type="submit">Save</button>
+    <a class="btn btn-danger" href="<%= article.getId().value%>/remove">Remove</a>
+</form>
 
-<% if(!!admin) { %>
-<a class="btn btn-info" href="<%= article.getId().value%>/edit">Edit</a>
-<a class="btn btn-danger" href="<%= article.getId().value%>/delete">Remove</a>
-<% } %> <%- include('layout/footer'); -%>
+
+<%- include('layout/footer'); -%>
