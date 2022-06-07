@@ -48,10 +48,17 @@ export class Kernel {
             endpointScopes: []
         };
 
-        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : process.argv[1];
+        console.log(process.cwd());
+
+
+        // const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), './src/main.ts');
+        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), './src/main.ts');
 
         const mainFileSplited = mainFile.split('.')
         const fileExtension = mainFileSplited[mainFileSplited.length - 1];
+
+        console.log(mainFile);
+        console.log(configuration?.controllersDirectory);
 
         const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
 

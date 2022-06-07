@@ -13,8 +13,8 @@ export class AdminController {
     @Get('create')
     async create() {
         const article = new Article();
-        await this.articlesRepository.save(article);
-        return new Redirection('/');
+        const id = await this.articlesRepository.save(article);
+        return new Redirection(id.value.toString());
     }
 
     @Post(':id/edit')

@@ -1,19 +1,16 @@
 {
   "name": "cameleo-sample-project-cms",
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "serve": "nodemon",
-    "build": "tsc",
+    "serve": "cameleo serve",
+    "build": "cameleo build",
     "test": "echo \"No tests about this package\"",
     "publish": "exit 0"
   },
   "dependencies": {
+    "@cameleo/console": "^0.1.0",
     "@cameleo/core": "^0.1.0",
     "@cameleo/http": "^0.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
   }
 }
