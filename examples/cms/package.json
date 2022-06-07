@@ -1,5 +1,5 @@
 {
-  "name": "cameleo-sample-project-blog",
+  "name": "cameleo-sample-project-cms",
   "version": "0.1.0",
   "scripts": {
     "serve": "nodemon",
