@@ -43,6 +43,7 @@ export abstract class TemplateEngine {
         }
 
         const body = await this.renderFile(fileName, options?.data);
-        return new Response({ status: options?.status || 200, body })
+        const status = options?.status || 200;
+        return new Response({ status, body })
     }
 }

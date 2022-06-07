@@ -1,9 +1,10 @@
 import { Container, ControllerFactory, getMetadata, Injectable, isInProduction, Logger } from "@cameleo/core";
 import { IncomingMessage, ServerResponse } from "http";
-import { REQUEST_CALLBACKS } from "./metadata";
+import { PARAMETERS_DECORATORS } from "./metadata";
 import { Request } from "./Request";
 import { Response } from "./Response";
-import { RequestCallback, Router } from "./router";
+import { RequestCallbackWithPosition, Router } from "./router";
+import { Session } from "./Session";
 import { TemplateEngine } from "./templates";
 
 @Injectable()
@@ -16,7 +17,27 @@ export class MainMiddleware {
     ) { }
 
     async resolve(message: IncomingMessage, serverResponse: ServerResponse) {
-        const request = Request.createFromGlobals(message);
+        const request = new Request(message);
+        const session = Session.fromGlobals(message);
+
+        const body = await new Promise<any>(resolve => {
+            let dataAsString = '';
+            message.on('data', chunk => {
+                dataAsString += chunk;
+            })
+            message.on('end', () => {
+                const data: any = {};
+
+                decodeURIComponent(dataAsString).replace(/\+/g, " ").split('&').forEach(d => {
+                    const [key, value] = d.split('=');
+                    data[key] = value;
+                });
+
+                resolve(data);
+            })
+        });
+        request.setBody(body);
+
         let response = new Response({ status: 500 });
 
         routeResolution: {
@@ -33,10 +54,12 @@ export class MainMiddleware {
 
                 const args = getMetadata({
                     constructor: route.middleware.type,
-                    tag: REQUEST_CALLBACKS,
+                    tag: PARAMETERS_DECORATORS,
                     propertyKey: route.middleware.methodName,
-                    defaultValue: new Array<RequestCallback>()
-                }).map(cb => cb(request));
+                    defaultValue: new Array<RequestCallbackWithPosition>()
+                })
+                    .sort((a, b) => a.parameterIndex - b.parameterIndex)
+                    .map(({ callback }) => callback({ request, session }));
 
                 const responseFromMiddleware = await middleware(...args) as Response<unknown>;
 
@@ -59,6 +82,17 @@ export class MainMiddleware {
         }
 
         serverResponse.statusCode = response.status;
+
+
+        const cookieData = session.getDataAsArray();
+        serverResponse.setHeader('Set-Cookie', cookieData);
+
+        if (!!response.headers) {
+            Object.keys(response.headers).forEach(header => {
+                serverResponse.setHeader(header, response.headers[header]);
+            })
+        }
+
         if (response.body) {
             serverResponse.write(((body) => {
                 switch (typeof body) {

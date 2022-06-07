@@ -2,14 +2,22 @@
 
 <h1>Login</h1>
 
-<form method="post" action="">
+<% errors.forEach(error => { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%=error%>
+</div>
+<% }); %>
+
+<form action="" method="POST">
   <div class="form-group">
     <label for="email">Email address</label>
     <input
       type="email"
       class="form-control"
       id="email"
+      name="email"
       placeholder="Enter email"
+      value="<%=email%>"
     />
   </div>
   <div class="form-group">
@@ -18,6 +26,7 @@
       type="password"
       class="form-control"
       id="password"
+      name="password"
       placeholder="Password"
     />
   </div>

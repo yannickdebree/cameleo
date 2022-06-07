@@ -1,25 +1,27 @@
 import { getMetadata, setMetadata } from "@cameleo/core";
-import { REQUEST_CALLBACKS } from "../../metadata";
+import { PARAMETERS_DECORATORS } from "../../metadata";
 import { Request } from "../../Request";
+import { Session } from "../../Session";
 
-export type RequestCallback<T = any> = (request: Request) => T;
+export type RequestCallback<T = any> = (params: { request: Request, session: Session }) => T;
+export type RequestCallbackWithPosition<T = any> = { callback: RequestCallback<T>, parameterIndex: number };
 
-export function CustomParameterDecorator<T>(requestCallback: RequestCallback<T>): ParameterDecorator {
-    return function ({ constructor }, propertyKey) {
-        const tag = REQUEST_CALLBACKS;
+export function CustomParameterDecorator<T>(callback: RequestCallback<T>): ParameterDecorator {
+    return function ({ constructor }, propertyKey, parameterIndex) {
+        const tag = PARAMETERS_DECORATORS;
 
         const requestCallbacks = getMetadata({
             tag,
             constructor,
             propertyKey,
-            defaultValue: new Array<RequestCallback>()
+            defaultValue: new Array<RequestCallbackWithPosition>()
         });
 
         setMetadata({
             tag,
             constructor,
             propertyKey,
-            value: [...requestCallbacks, requestCallback]
+            value: [...requestCallbacks, { callback, parameterIndex }]
         })
     }
 }

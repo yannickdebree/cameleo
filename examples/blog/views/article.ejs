@@ -3,4 +3,7 @@
 <h1><%= article.getTitle() %></h1>
 <p><%= article.getContent() %></p>
 
-<%- include('layout/footer'); -%>
+<% if(!!admin) { %>
+<a class="btn btn-info" href="<%= article.getId().value%>/edit">Edit</a>
+<a class="btn btn-danger" href="<%= article.getId().value%>/delete">Remove</a>
+<% } %> <%- include('layout/footer'); -%>

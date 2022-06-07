@@ -1,8 +1,8 @@
 import { CustomParameterDecorator } from "./CustomParameterDecorator";
 
-export function Param(parameter: string, ...parsers: any[]) {
+export function Body(key: string, ...parsers: any[]) {
     return CustomParameterDecorator(({ request }) => {
-        let data = request.getParams()[parameter];
+        let data = request.getBody()[key];
         parsers.forEach(pipe => {
             data = pipe(data);
         })

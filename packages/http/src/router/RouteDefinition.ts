@@ -1,6 +1,5 @@
+import { HttpMethod } from "../HttpMethod";
 import { PathDefinition } from "./PathDefinition";
-
-type HttpMethod = 'GET';
 
 export class RouteDefinition {
     public readonly pathname: string;

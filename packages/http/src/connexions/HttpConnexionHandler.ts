@@ -15,7 +15,7 @@ export class HttpConnexionHandler {
         return new Promise<void>(resolve => {
             this.server.on('request', async (incomingMessage, serverResponse) => {
                 this.mainMiddleware.resolve(incomingMessage, serverResponse)
-            })
+            });
 
             this.server.listen(port, () => {
                 this.logger.info(`HTTP connexion ready on port ${port}.`);

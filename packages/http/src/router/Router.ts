@@ -11,7 +11,7 @@ export class Router {
     ) { }
 
     addRoute<T>(route: Route<T>) {
-        if (this.routes.find(r => r.routeDefinition.pathname === route.routeDefinition.pathname)) return;
+        if (this.routes.find(r => r.routeDefinition.pathname === route.routeDefinition.pathname && r.routeDefinition.method === route.routeDefinition.method)) return;
         this.routes.push(route);
         const { routeDefinition: { method, pathname }, middleware: { type, methodName } } = route;
         this.logger.info(`(${method}) ${pathname} : ${type.name}.${methodName}`)
@@ -19,6 +19,7 @@ export class Router {
 
     getRouteByRequest(request: Request) {
         return this.routes
+            .filter(route => route.routeDefinition.method === request.method)
             .find(route => {
                 const registredRouteParts = route.routeDefinition.pathDefiniton.parts;
                 const requestParts = request.pathDefinition.parts;
@@ -37,7 +38,9 @@ export class Router {
                         return false;
                     }
 
-                    params[registredRoutePart.value.replace(':', '')] = requestPart.value;
+                    if (registredRoutePart.type === "param") {
+                        params[registredRoutePart.value.replace(':', '')] = requestPart.value;
+                    }
                 }
 
                 request.setParams(params);

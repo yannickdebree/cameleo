@@ -1,13 +1,14 @@
 import { Kernel } from '@cameleo/core';
 import { EjsTemplateEngine, HttpConnexion } from '@cameleo/http';
 import { join } from 'path';
-import { FakeArticlesRepository } from './repositories';
-import { ARTICLES_REPOSITORY } from './utils/providers';
+import { FakeAdminsRepository, FakeArticlesRepository } from './repositories';
+import { ADMINS_REPOSITORY, ARTICLES_REPOSITORY } from './utils/providers';
 
 async function main() {
     const kernel = await Kernel.create({
         injectables: {
-            [ARTICLES_REPOSITORY]: new FakeArticlesRepository()
+            [ARTICLES_REPOSITORY]: new FakeArticlesRepository(),
+            [ADMINS_REPOSITORY]: new FakeAdminsRepository()
         }
     });
     await kernel.open(
