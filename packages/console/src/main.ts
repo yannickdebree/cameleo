@@ -1,8 +1,16 @@
-import { ConfigurationAnalyzer } from "./ConfigurationAnalyzer";
+import { spawn } from "child_process";
 
 async function main() {
-    const a = await ConfigurationAnalyzer.fromGlobals();
-    console.log(a);
+    // const a = await ConfigurationAnalyzer.fromGlobals();
+    // console.log(a);
+    // Build command
+    await new Promise<void>(resolve => {
+        const proc = spawn('tsc');
+        proc.on('exit', () => {
+            console.log('Build finished !');
+            resolve();
+        })
+    })
 
     // return new Promise<void>(resolve => {
     //     const daemon = nodemon({

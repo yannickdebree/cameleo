@@ -1,5 +1,5 @@
 {
-    "$schema": "./cameleo.schema.json",
+    "$schema": "./node_modules/@cameleo/core/cameleo.schema.json",
     "projects": [
         {
             "name": "say-hello",

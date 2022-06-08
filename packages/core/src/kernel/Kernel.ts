@@ -1,5 +1,3 @@
-import { readdir } from 'fs/promises';
-import { join } from 'path';
 import 'reflect-metadata';
 import { Connexion } from '../Connexion';
 import { Controller, EndpointScopeFactory } from '../controllers';
@@ -9,7 +7,7 @@ import { Logger } from "../Logger";
 import { KernelConfiguration } from './KernelConfiguration';
 
 interface KernelConstructor {
-    controllersDirectory?: string;
+    controllers: Array<Controller<any>>;
     injectables?: Object;
 }
 
@@ -51,30 +49,9 @@ export class Kernel {
             endpointScopes: []
         };
 
-        const fileExtension = isInProduction() ? 'js' : 'ts';
-        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), `./src/main.${fileExtension}`);
-
-        const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
-
-        console.log(controllersDirectory);
-
-        const fileExtensionRegex = new RegExp(`^(?!.*\.d\.tsx?$).*\.${fileExtension}?$`);
-
-        const controllerModulesNames = await readdir(controllersDirectory)
-            .then(
-                controllerModulesNames =>
-                    controllerModulesNames
-                        .filter(
-                            controllerModuleName => fileExtensionRegex.test(controllerModuleName)
-                        )
-                        .map(controllerModuleName => controllerModuleName.split(`.${fileExtension}`)[0])
-            );
-
         const endpointScopeFactory = this.container.get(EndpointScopeFactory)
-        await Promise.all(controllerModulesNames.map(async controllerModuleName => {
-            const module = await import(join(controllersDirectory, `${controllerModuleName}.${fileExtension}`));
-            const controller = module[controllerModuleName] as Controller<any>;
+        configuration?.controllers?.forEach(async controller => {
             this.configuration?.endpointScopes.push(...endpointScopeFactory.fromControllerClass(controller))
-        }));
+        });
     }
 }

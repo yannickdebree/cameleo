@@ -1,4 +1,3 @@
-import { join } from "path";
 import { Connexion } from "../Connexion";
 import { Container } from "../di";
 import { Kernel } from "./Kernel";
@@ -25,7 +24,7 @@ describe(Kernel.name, () => {
         }
 
         const kernel = await Kernel.create({
-            controllersDirectory: join(__dirname, './test-controllers'),
+            controllers: [TestController],
             injectables: {
                 [injectableProvider]: injectableValue
             }

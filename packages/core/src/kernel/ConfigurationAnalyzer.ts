@@ -5,8 +5,8 @@ interface WorkspaceConfiguration {
     projects: {
         name: string;
         mainFile: string;
-    }[],
-    defaultWorkspace: string;
+    }[];
+    defaultProject: string;
 }
 
 export class ConfigurationAnalyzer {
