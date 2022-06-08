@@ -56,6 +56,8 @@ export class Kernel {
 
         const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
 
+        console.log(controllersDirectory);
+
         const fileExtensionRegex = new RegExp(`^(?!.*\.d\.tsx?$).*\.${fileExtension}?$`);
 
         const controllerModulesNames = await readdir(controllersDirectory)

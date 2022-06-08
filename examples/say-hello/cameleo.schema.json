@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Cameleo workspace configuration",
+    "description": "Cameleo workspace configuration",
+    "type": "object",
+    "properties": {
+        "projects": {
+            "description": "Projects's workspace list",
+            "type": "array"
+        },
+        "defaultProject": {
+            "description": "Name of the default project",
+            "type": "string"
+        }
+    },
+    "required": [
+        "projects",
+        "defaultProject"
+    ]
+}

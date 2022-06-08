@@ -1,10 +1,27 @@
-import { CliConnexion } from "@cameleo/cli";
-import { Kernel } from "@cameleo/core";
-import { join } from 'path';
+import { ConfigurationAnalyzer } from "./ConfigurationAnalyzer";
 
 async function main() {
-    const kernel = await Kernel.create({ controllersDirectory: join(__filename, '../commands') });
-    await kernel.open(new CliConnexion());
+    const a = await ConfigurationAnalyzer.fromGlobals();
+    console.log(a);
+
+    // return new Promise<void>(resolve => {
+    //     const daemon = nodemon({
+    //         verbose: true,
+    //         watch: ['src'],
+    //         ext: "ts",
+    //         exec: "tsc && node dist/main.js",
+    //         stdin: true,
+    //         stdout: true
+    //     });
+
+    //     daemon.on('restart', () => {
+    //         console.log('Changes detected. Recompiling...');
+    //     })
+
+    //     daemon.on('quit', () => {
+    //         resolve();
+    //     });
+    // })
 }
 
 main();

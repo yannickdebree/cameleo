@@ -14,6 +14,7 @@ export class CliConnexion implements Connexion {
             }
         });
 
+
         const command = Command.createFromGlobals();
 
         const cContainer = new Container();
@@ -41,6 +42,9 @@ export class CliConnexion implements Connexion {
             const args = [command];
             return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
         })();
+
+        console.log('response : ', response);
+
 
         if (!!response) {
             console.log(response);

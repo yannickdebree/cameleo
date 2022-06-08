@@ -1,0 +1,10 @@
+{
+    "$schema": "./cameleo.schema.json",
+    "projects": [
+        {
+            "name": "say-hello",
+            "mainFile": "src/main.ts"
+        }
+    ],
+    "defaultProject": "say-hello"
+}
