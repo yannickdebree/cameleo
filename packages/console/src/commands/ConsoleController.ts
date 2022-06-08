@@ -1,4 +1,5 @@
 import { Cmd } from "@cameleo/cli";
+import nodemon from "nodemon";
 
 export class ConsoleController {
     @Cmd()
@@ -8,17 +9,23 @@ export class ConsoleController {
 
     @Cmd('serve')
     serve() {
-        return 'serve'
-        // nodemon({
-        //     verbose: true,
-        //     watch: ['src'],
-        //     ext: "ts",
-        //     exec: "tsc"
-        // });
-    }
+        return new Promise<void>(resolve => {
+            const daemon = nodemon({
+                verbose: true,
+                watch: ['src'],
+                ext: "ts",
+                exec: "tsc && node dist/main.js",
+                stdin: true,
+                stdout: true
+            });
 
-    @Cmd("build")
-    build() {
-        return 'build'
+            daemon.on('restart', () => {
+                console.log('Changes detected. Recompiling...');
+            })
+
+            daemon.on('quit', () => {
+                resolve();
+            });
+        })
     }
 }

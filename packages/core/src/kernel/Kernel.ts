@@ -4,6 +4,7 @@ import 'reflect-metadata';
 import { Connexion } from '../Connexion';
 import { Controller, EndpointScopeFactory } from '../controllers';
 import { Container, Injectable } from "../di";
+import { isInProduction } from '../environment';
 import { Logger } from "../Logger";
 import { KernelConfiguration } from './KernelConfiguration';
 
@@ -19,8 +20,10 @@ export class Kernel {
     constructor(
         private container: Container,
     ) {
-        const logger = container.get(Logger);
-        logger.info('Kernel created.')
+        if (!isInProduction()) {
+            const logger = container.get(Logger);
+            logger.info('Kernel created.')
+        }
     }
 
     static async create(configuration?: Partial<KernelConstructor>) {
@@ -48,17 +51,8 @@ export class Kernel {
             endpointScopes: []
         };
 
-        console.log(process.cwd());
-
-
-        // const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), './src/main.ts');
-        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), './src/main.ts');
-
-        const mainFileSplited = mainFile.split('.')
-        const fileExtension = mainFileSplited[mainFileSplited.length - 1];
-
-        console.log(mainFile);
-        console.log(configuration?.controllersDirectory);
+        const fileExtension = isInProduction() ? 'js' : 'ts';
+        const mainFile = process.env.NODE_ENV === "test" ? join(__dirname, 'Kernel.test.ts') : join(process.cwd(), `./src/main.${fileExtension}`);
 
         const controllersDirectory = configuration?.controllersDirectory || join(mainFile, '../controllers');
 

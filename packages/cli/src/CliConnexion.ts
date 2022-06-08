@@ -3,7 +3,7 @@ import { Command } from "./Command";
 import { COMMAND } from "./metadata";
 
 export class CliConnexion implements Connexion {
-    handle(container: Container, configuration: KernelConfiguration) {
+    async handle(container: Container, configuration: KernelConfiguration) {
         const controllerFactory = container.get(ControllerFactory);
 
         const endpointScopesRegistry = configuration.endpointScopes.map(endpointScope => {
@@ -33,17 +33,17 @@ export class CliConnexion implements Connexion {
             return endpointScopeFromCommand;
         })();
 
-        const response = (() => {
+        const response = await (() => {
             if (!endpointScope) {
-                return "";
+                return;
             }
             const middleware = controllerFactory.getInstance(endpointScope.type);
             const args = [command];
             return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
         })();
 
-        console.log(response);
-
-        return Promise.resolve()
+        if (!!response) {
+            console.log(response);
+        }
     }
 }
