@@ -1,6 +1,7 @@
 import { Connexion, Container, ControllerFactory, getMetadata, KernelConfiguration } from "@cameleo/core";
 import { Command } from "./Command";
-import { COMMAND } from "./metadata";
+import { CmdCallbackWithPosition } from "./decorators";
+import { COMMAND, PARAMETERS_DECORATORS } from "./metadata";
 
 export class CliConnexion implements Connexion {
     async handle(container: Container, configuration: KernelConfiguration) {
@@ -15,9 +16,6 @@ export class CliConnexion implements Connexion {
         });
 
         const command = Command.createFromGlobals();
-
-        const cContainer = new Container();
-        cContainer.set(Command, command);
 
         const endpointScope = (() => {
             if (!command.keyword) {
@@ -38,7 +36,16 @@ export class CliConnexion implements Connexion {
                 return;
             }
             const middleware = controllerFactory.getInstance(endpointScope.type);
-            const args = [command];
+
+            const args = getMetadata({
+                constructor: endpointScope.type,
+                tag: PARAMETERS_DECORATORS,
+                propertyKey: endpointScope.methodName,
+                defaultValue: new Array<CmdCallbackWithPosition>()
+            })
+                .sort((a, b) => a.parameterIndex - b.parameterIndex)
+                .map(({ callback }) => callback({ command }));
+
             return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
         })();
 

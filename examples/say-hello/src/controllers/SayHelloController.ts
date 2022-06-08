@@ -1,4 +1,4 @@
-import { Cmd, Command } from "@cameleo/cli";
+import { C, Cmd, Command } from "@cameleo/cli";
 
 export class SayHelloController {
     @Cmd()
@@ -22,7 +22,10 @@ export class SayHelloController {
     }
 
     @Cmd('*')
-    unknowCommand(command: Command) {
+    unknowCommand(
+        @C
+        command: Command
+    ) {
         console.log(`Unknow command: ${command.keyword}`);
         return 1;
     }

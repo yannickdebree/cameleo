@@ -1,7 +1,7 @@
 import { Cmd } from '@cameleo/cli';
 import { Inject, Injectable, Logger } from '@cameleo/core';
 import { spawn } from 'child_process';
-import { watch } from 'fs';
+import { } from 'typescript';
 import { PROJECT_CONFIGURATION } from '../providers';
 import { ProjectConfiguration } from '../WorkspaceConfiguration';
 
@@ -18,10 +18,19 @@ export class ConsoleController {
         this.logger.info('Build in progress...');
 
         await new Promise<void>(resolve => {
-            const proc = spawn('tsc');
-            proc.on('exit', () => {
+            const ls = spawn('npx', ['tsc']);
+            ls.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
+            });
+
+            ls.stderr.on('data', (data) => {
+                console.error(`stderr: ${data}`);
+            });
+
+            ls.on('close', (code) => {
+                console.log(`child process exited with code ${code}`);
                 resolve();
-            })
+            });
         });
 
         this.logger.info('Build finished !');
@@ -31,17 +40,30 @@ export class ConsoleController {
 
     @Cmd('serve')
     async serve() {
-        new Promise<void>(resolve => {
-            const watcher = watch(`${this.projectConfiguration.root}`, (event, filename) => {
-                console.log('Changes detected. Recompiling...');
+        await new Promise<void>(resolve => {
+            const ls = spawn('npx', ['ts-node', `${this.projectConfiguration.root}/${this.projectConfiguration.main}`]);
+
+            ls.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
             });
 
-            process.on('exit', () => {
-                watcher.close();
-                console.log('Process killed !');
+            ls.stderr.on('data', (data) => {
+                console.error(`stderr: ${data}`);
+            });
+
+            ls.on('close', (code) => {
+                console.log(`child process exited with code ${code}`);
                 resolve();
-            })
-        });
+            });
+        })
+        // let proc = test();
+
+        // const watcher = watch(`${this.projectConfiguration.root}`);
+        // for await (const event of watcher) {
+        //     proc.kill();
+        //     console.log("Files changed. Recompiling...");
+        //     proc = test();
+        // }
 
         return 0;
 

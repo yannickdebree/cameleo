@@ -1,0 +1,11 @@
+{
+    "$schema": "./cameleo.schema.json",
+    "projects": [
+        {
+            "name": "console",
+            "root": "src",
+            "main": "main.ts"
+        }
+    ],
+    "defaultProject": "console"
+}
