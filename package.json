@@ -1,5 +1,6 @@
 {
   "name": "cameleo",
+  "version": "0.1.0",
   "scripts": {
     "postinstall": "lerna bootstrap && lerna run build",
     "lerna": "lerna",
@@ -7,6 +8,5 @@
   },
   "devDependencies": {
     "lerna": "^4.0.0"
-  },
-  "version": "0.2.0"
+  }
 }

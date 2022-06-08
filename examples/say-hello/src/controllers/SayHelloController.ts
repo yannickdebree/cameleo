@@ -3,23 +3,27 @@ import { Cmd, Command } from "@cameleo/cli";
 export class SayHelloController {
     @Cmd()
     help() {
-        return `You can control a robot and do speak it by using those commands :
+        console.log(`You can control a robot and do speak it by using those commands :
     hi: The robot will say Hello.
-    bye: The robot will say Bye.`;
+    bye: The robot will say Bye.`);
+        return 0;
     }
 
     @Cmd("hi")
     hello() {
-        return 'The robot says "Hello !"'
+        console.log('The robot says "Hello !"');
+        return 0;
     }
 
     @Cmd("bye")
     goodBye() {
-        return 'The robot says "Good bye !"'
+        console.log('The robot says "Good bye !"');
+        return 0;
     }
 
     @Cmd('*')
     unknowCommand(command: Command) {
-        return `Unknow command: ${command.keyword}`
+        console.log(`Unknow command: ${command.keyword}`);
+        return 1;
     }
 }

@@ -25,11 +25,13 @@ export class ConsoleController {
         });
 
         this.logger.info('Build finished !');
+
+        return 0;
     }
 
     @Cmd('serve')
     async serve() {
-        return new Promise<void>(resolve => {
+        new Promise<void>(resolve => {
             const watcher = watch(`${this.projectConfiguration.root}`, (event, filename) => {
                 console.log('Changes detected. Recompiling...');
             });
@@ -39,7 +41,9 @@ export class ConsoleController {
                 console.log('Process killed !');
                 resolve();
             })
-        })
+        });
+
+        return 0;
 
         // return new Promise<void>(resolve => {
         //     const daemon = nodemon({

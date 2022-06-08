@@ -14,7 +14,6 @@ export class CliConnexion implements Connexion {
             }
         });
 
-
         const command = Command.createFromGlobals();
 
         const cContainer = new Container();
@@ -34,7 +33,7 @@ export class CliConnexion implements Connexion {
             return endpointScopeFromCommand;
         })();
 
-        const response = await (() => {
+        const exitCode: number = await (() => {
             if (!endpointScope) {
                 return;
             }
@@ -43,9 +42,10 @@ export class CliConnexion implements Connexion {
             return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
         })();
 
-
-        if (!!response) {
-            console.log(response);
+        if (exitCode === undefined || exitCode === null) {
+            throw new Error();
         }
+
+        process.exit(exitCode);
     }
 }

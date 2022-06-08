@@ -4,7 +4,7 @@ import { isInProduction } from './environment';
 @Injectable()
 export class Logger {
     log(message?: any, ...optionalParams: any[]) {
-        console.info('(CAMELEO) LOGGER |', message, ...optionalParams)
+        console.log('(CAMELEO) LOGGER |', message, ...optionalParams)
     }
 
     info(message?: any, ...optionalParams: any[]) {
