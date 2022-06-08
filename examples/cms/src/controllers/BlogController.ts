@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@cameleo/core";
-import { Get, Param, Response, TemplateEngine } from "@cameleo/http";
+import { Get, NotFoundResponse, Param, TemplateEngine } from "@cameleo/http";
 import { ArticlesRepository, ID, parseToID } from "../domain";
 import { ARTICLES_REPOSITORY } from '../utils/providers';
 
@@ -23,7 +23,7 @@ export class BlogController {
     ) {
         const article = await this.articlesRepository.findOne(id);
         if (!article) {
-            return new Response({ status: 404 })
+            return new NotFoundResponse()
         }
         return this.templateEngine.render('article', { data: { article } });
     }

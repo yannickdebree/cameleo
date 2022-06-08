@@ -1,6 +1,7 @@
 import { Container, ControllerFactory, getMetadata, Injectable, isInProduction, Logger } from "@cameleo/core";
 import { IncomingMessage, ServerResponse } from "http";
 import { PARAMETERS_DECORATORS } from "./metadata";
+import { NotFoundResponse } from "./NotFoundResponse";
 import { Request } from "./Request";
 import { Response } from "./Response";
 import { RequestCallbackWithPosition, Router } from "./router";
@@ -44,7 +45,7 @@ export class MainMiddleware {
             const route = this.router.getRouteByRequest(request);
 
             if (!route) {
-                response = new Response({ status: 404 })
+                response = new NotFoundResponse()
                 break routeResolution;
             }
 

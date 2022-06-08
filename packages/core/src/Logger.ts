@@ -3,6 +3,10 @@ import { isInProduction } from './environment';
 
 @Injectable()
 export class Logger {
+    log(message?: any, ...optionalParams: any[]) {
+        console.info('(CAMELEO) LOGGER |', message, ...optionalParams)
+    }
+
     info(message?: any, ...optionalParams: any[]) {
         if (isInProduction()) return;
         console.info('(CAMELEO) LOGGER INFO |', message, ...optionalParams)

@@ -2,10 +2,10 @@
     "$schema": "./node_modules/@cameleo/console/cameleo.schema.json",
     "projects": [
         {
-            "name": "say-hello",
+            "name": "cms",
             "root": "src",
             "main": "main.ts"
         }
     ],
-    "defaultProject": "say-hello"
+    "defaultProject": "cms"
 }

@@ -2,15 +2,16 @@ import { Article, ArticlesRepository, ID } from "../domain";
 
 export class FakeArticlesRepository implements ArticlesRepository {
     private data = new Array<Article>();
+    private lastIndex = 0;
 
     constructor() {
         for (let i = 0; i < 10; ++i) {
-            this.data.push(new Article().setId(new ID(this.data.length)).setTitle(`My beautiful article ${i + 1}`).setContent("Lorem ipsum..."));
+            this.data.push(new Article().setId(new ID(this.lastIndex++)).setTitle(`My beautiful article ${i + 1}`).setContent("Lorem ipsum..."));
         }
     }
 
     save(article: Article) {
-        const id = new ID(this.data.length);
+        const id = new ID(this.lastIndex++);
         article.setId(id);
         this.data.push(article);
         return Promise.resolve(id);

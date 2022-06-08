@@ -1,35 +1,29 @@
-import { spawn } from "child_process";
+import { CliConnexion } from '@cameleo/cli';
+import { Kernel } from '@cameleo/core';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+import { ConsoleController } from './controllers';
+import { PROJECT_CONFIGURATION } from './providers';
+import { WorkspaceConfiguration } from './WorkspaceConfiguration';
 
 async function main() {
-    // const a = await ConfigurationAnalyzer.fromGlobals();
-    // console.log(a);
-    // Build command
-    await new Promise<void>(resolve => {
-        const proc = spawn('tsc');
-        proc.on('exit', () => {
-            console.log('Build finished !');
-            resolve();
-        })
-    })
+    const projectPath = process.cwd();
 
-    // return new Promise<void>(resolve => {
-    //     const daemon = nodemon({
-    //         verbose: true,
-    //         watch: ['src'],
-    //         ext: "ts",
-    //         exec: "tsc && node dist/main.js",
-    //         stdin: true,
-    //         stdout: true
-    //     });
+    const workspaceConfiguration: WorkspaceConfiguration = JSON.parse(await readFile(join(projectPath, 'cameleo.json'), { encoding: 'utf-8' }));
+    // TODO: implement project checking
+    const defaultProject = workspaceConfiguration.defaultProject;
+    const projectConfiguration = workspaceConfiguration.projects.find(project => project.name === defaultProject);
+    if (!projectConfiguration) {
+        throw new Error();
+    }
 
-    //     daemon.on('restart', () => {
-    //         console.log('Changes detected. Recompiling...');
-    //     })
+    const kernel = await Kernel.create({
+        controllers: [ConsoleController], injectables: {
+            [PROJECT_CONFIGURATION]: projectConfiguration
+        }
+    });
 
-    //     daemon.on('quit', () => {
-    //         resolve();
-    //     });
-    // })
+    await kernel.open(new CliConnexion());
 }
 
 main();

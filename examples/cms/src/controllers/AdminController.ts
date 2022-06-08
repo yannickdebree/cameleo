@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@cameleo/core";
-import { Body, Get, Param, Post, Redirection, Response } from "@cameleo/http";
+import { Body, Get, NotFoundResponse, Param, Post, Redirection } from "@cameleo/http";
 import { Article, ArticlesRepository, ID, parseToID } from "../domain";
 import { ARTICLES_REPOSITORY } from "../utils/providers";
 
@@ -26,7 +26,7 @@ export class AdminController {
         const article = await this.articlesRepository.findOne(id);
 
         if (!article) {
-            return new Response({ status: 404 })
+            return new NotFoundResponse()
         }
 
         article.setTitle(title);
@@ -43,7 +43,7 @@ export class AdminController {
         const article = await this.articlesRepository.findOne(id);
 
         if (!article) {
-            return new Response({ status: 404 })
+            return new NotFoundResponse()
         }
         await this.articlesRepository.removeOne(id);
         return new Redirection('/')

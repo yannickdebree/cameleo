@@ -2,7 +2,7 @@
   "name": "cameleo-sample-project-cms",
   "version": "0.1.0",
   "scripts": {
-    "serve": "cameleo serve",
+    "start": "cameleo serve",
     "build": "cameleo build",
     "test": "echo \"No tests about this package\"",
     "publish": "exit 0"

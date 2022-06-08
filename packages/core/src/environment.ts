@@ -1,3 +1,5 @@
 export function isInProduction() {
-    return process.env.CAMELEO_ENV !== "development";
+    const fileRunnerPath = process.argv[1].split('/');
+    const fileRunner = fileRunnerPath[fileRunnerPath.length - 1];
+    return fileRunner.includes('.js') || process.env.NODE_ENV === "production";
 }

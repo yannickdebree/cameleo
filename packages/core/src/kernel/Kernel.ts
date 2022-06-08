@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { Connexion } from '../Connexion';
 import { Controller, EndpointScopeFactory } from '../controllers';
 import { Container, Injectable } from "../di";
-import { isInProduction } from '../environment';
 import { Logger } from "../Logger";
 import { KernelConfiguration } from './KernelConfiguration';
 
@@ -18,13 +17,11 @@ export class Kernel {
     constructor(
         private container: Container,
     ) {
-        if (!isInProduction()) {
-            const logger = container.get(Logger);
-            logger.info('Kernel created.')
-        }
+        const logger = container.get(Logger);
+        logger.info('Kernel created.')
     }
 
-    static async create(configuration?: Partial<KernelConstructor>) {
+    static async create(configuration: KernelConstructor) {
         const container = new Container();
         container.set(Container, container);
         const kernel = container.get(Kernel);
@@ -38,9 +35,9 @@ export class Kernel {
         }
     }
 
-    private async setConfiguration(configuration?: Partial<KernelConstructor>) {
-        if (!!configuration?.injectables) {
-            Object.keys(configuration?.injectables).forEach(injectableToken => {
+    private async setConfiguration(configuration: KernelConstructor) {
+        if (!!configuration.injectables) {
+            Object.keys(configuration.injectables).forEach(injectableToken => {
                 this.container.set(injectableToken, (configuration?.injectables as any)[injectableToken])
             })
         }
@@ -50,7 +47,7 @@ export class Kernel {
         };
 
         const endpointScopeFactory = this.container.get(EndpointScopeFactory)
-        configuration?.controllers?.forEach(async controller => {
+        configuration.controllers.forEach(async controller => {
             this.configuration?.endpointScopes.push(...endpointScopeFactory.fromControllerClass(controller))
         });
     }
