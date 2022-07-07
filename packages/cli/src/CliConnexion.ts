@@ -31,7 +31,7 @@ export class CliConnexion implements Connexion {
             return endpointScopeFromCommand;
         })();
 
-        const exitCode: number = await (() => {
+        const exitCode = await (() => {
             if (!endpointScope) {
                 return;
             }
@@ -46,7 +46,7 @@ export class CliConnexion implements Connexion {
                 .sort((a, b) => a.parameterIndex - b.parameterIndex)
                 .map(({ callback }) => callback({ command }));
 
-            return (middleware as any)[endpointScope.methodName].bind(middleware)(...args);
+            return (middleware as any)[endpointScope.methodName].bind(middleware)(...args) as number;
         })();
 
         if (exitCode === undefined || exitCode === null) {

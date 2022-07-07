@@ -30,9 +30,10 @@ export class Kernel {
     }
 
     open(connexion: Connexion) {
-        if (!!this.configuration) {
-            return connexion.handle(this.container, this.configuration);
+        if (!this.configuration) {
+            throw new Error();
         }
+        return connexion.handle(this.container, this.configuration);
     }
 
     private async setConfiguration(configuration: KernelConstructor) {

@@ -1,4 +1,4 @@
-import { C, Cmd, Command } from "@cameleo/cli";
+import { InjectCommand, Cmd, Command } from "@cameleo/cli";
 
 export class SayHelloController {
     @Cmd()
@@ -23,7 +23,7 @@ export class SayHelloController {
 
     @Cmd('*')
     unknowCommand(
-        @C
+        @InjectCommand
         command: Command
     ) {
         console.log(`Unknow command: ${command.keyword}`);

@@ -1,4 +1,3 @@
-export * from './C';
+export * from './InjectCommand';
 export * from './Cmd';
 export * from './CustomParameterDecorator';
-export * from './Out';

@@ -1,5 +1,5 @@
 export function isInProduction() {
-    const fileRunnerPath = process.argv[1].split('/');
-    const fileRunner = fileRunnerPath[fileRunnerPath.length - 1];
-    return fileRunner.includes('.js') || process.env.NODE_ENV === "production";
+    const runningFileAbsolutePath = process.argv[1].split('/');
+    const runningFileName = runningFileAbsolutePath[runningFileAbsolutePath.length - 1];
+    return runningFileName.includes('.js') || process.env.NODE_ENV === "production";
 }
