@@ -7,12 +7,12 @@ export class ControllerFactory {
         private container: Container
     ) { }
 
-    getInstance<T>(controllerClass: Controller<T>) {
+    getControllerInstance<T>(controller: Controller<T>) {
         let controllerInstance: T;
         try {
-            controllerInstance = this.container.get(controllerClass);
+            controllerInstance = this.container.get(controller);
         } catch (err) {
-            controllerInstance = new controllerClass();
+            controllerInstance = new controller();
         }
         return controllerInstance;
     }

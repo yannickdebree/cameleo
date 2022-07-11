@@ -4,7 +4,7 @@ import { Route } from "./Route";
 
 @Injectable()
 export class Router {
-    private routes = new Array<Route<unknown>>();
+    private routes = new Array<Route<any>>();
 
     constructor(
         private logger: Logger

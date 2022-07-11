@@ -50,7 +50,7 @@ export class MainMiddleware {
             }
 
             try {
-                const instance = this.controllerFactory.getInstance(route.middleware.type) as any;
+                const instance = this.controllerFactory.getControllerInstance(route.middleware.type);
                 const middleware = instance[route.middleware.methodName].bind(instance);
 
                 const args = getMetadata({
@@ -91,7 +91,7 @@ export class MainMiddleware {
         if (!!response.headers) {
             Object.keys(response.headers).forEach(header => {
                 serverResponse.setHeader(header, response.headers[header]);
-            })
+            });
         }
 
         if (response.body) {

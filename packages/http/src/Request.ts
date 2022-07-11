@@ -1,7 +1,6 @@
 import { IncomingMessage } from "http";
 import { HttpMethod } from "./HttpMethod";
 import { PathDefinition } from "./router";
-import { Session } from "./Session";
 
 export class Request {
     private params: any;
