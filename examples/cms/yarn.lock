@@ -2,22 +2,23 @@
 # yarn lockfile v1
 
 
-"@cameleo/core@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@cameleo/core/-/core-0.1.0.tgz#be7e6fb540f99d4c61ba658d697931b9365c1cff"
-  integrity sha512-Tyu8d77m4aGyGRldFht9IYKukRHa2kJBXJBm826WpWTRh2Z7omALqYYRhgTkQRQH5tFHmKcwDP5D68bi0prPDQ==
+"@cameleo/core@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@cameleo/core/-/core-0.1.1.tgz#22c0195a63716c880bbc7b5602082465881fd297"
+  integrity sha512-iQVBVc/lQLOgg2izL7RyNm+Kk0/mT9oCpHBEmLj+g4ClMajPi4JjScB1VPYuk+W8bN0vxgxFurqtJXoa8Sx/xA==
   dependencies:
     reflect-metadata "^0.1.13"
+    ts-node "^10.8.1"
     typedi "^0.10.0"
 
-"@cameleo/http@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@cameleo/http/-/http-0.1.0.tgz#9fdd05cbc658cc49fee17387b34895efb3dd9ebf"
-  integrity sha512-uAlbMQ/K2PrIUKYB6ijixqCkr5Nx8749wJFTGpnM2tcQtFv+Zs3usMpQU678GIAGeSkKjt6MXOBy37JcPTZQpg==
+"@cameleo/http@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@cameleo/http/-/http-0.1.1.tgz#414652478f51c9ad40cbba5418c989da87790e5d"
+  integrity sha512-jTrX5A5D1MzmIC2RMXsL2Lk8ubfYRP5zFWJdtnEM2pk4mlbq3buFWBaNNbK+LInyGCbhC36DHBNPZh2tx6/2WA==
   dependencies:
-    "@cameleo/core" "^0.1.0"
+    "@cameleo/core" "0.1.1"
     ejs "^3.1.8"
-    nodemon "^2.0.16"
+    ts-node "^10.8.1"
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
@@ -306,22 +307,6 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-nodemon@^2.0.16:
-  version "2.0.22"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.22.tgz#182c45c3a78da486f673d6c1702e00728daf5258"
-  integrity sha512-B8YqaKMmyuCO7BowF1Z1/mkPqLk6cs/l63Ojtd6otKjMx47Dq1utxfRxcavH1I7VSaL8n5BUaoutadnsX3AAVQ==
-  dependencies:
-    chokidar "^3.5.2"
-    debug "^3.2.7"
-    ignore-by-default "^1.0.1"
-    minimatch "^3.1.2"
-    pstree.remy "^1.1.8"
-    semver "^5.7.1"
-    simple-update-notifier "^1.0.7"
-    supports-color "^5.5.0"
-    touch "^3.1.0"
-    undefsafe "^2.0.5"
-
 nodemon@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-3.0.1.tgz#affe822a2c5f21354466b2fc8ae83277d27dadc7"
@@ -372,29 +357,12 @@ reflect-metadata@^0.1.13:
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
-semver@^5.7.1:
-  version "5.7.2"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.2.tgz#48d55db737c3287cd4835e17fa13feace1c41ef8"
-  integrity sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==
-
 semver@^7.5.3:
   version "7.5.4"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
   integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
   dependencies:
     lru-cache "^6.0.0"
-
-semver@~7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
-  integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
-
-simple-update-notifier@^1.0.7:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/simple-update-notifier/-/simple-update-notifier-1.1.0.tgz#67694c121de354af592b347cdba798463ed49c82"
-  integrity sha512-VpsrsJSUcJEseSbMHkrsrAVSdvVS5I96Qo1QAQ4FxQ9wXFcB+pjj7FB7/us9+GcgfW4ziHtYMc1J0PLczb55mg==
-  dependencies:
-    semver "~7.0.0"
 
 simple-update-notifier@^2.0.0:
   version "2.0.0"
@@ -431,7 +399,7 @@ touch@^3.1.0:
   dependencies:
     nopt "~1.0.10"
 
-ts-node@^10.8.2:
+ts-node@^10.8.1, ts-node@^10.8.2:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
