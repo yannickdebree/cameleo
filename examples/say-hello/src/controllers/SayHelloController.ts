@@ -1,4 +1,4 @@
-import { InjectCommand, Cmd, Command } from "@cameleo/cli";
+import { InjectCommand, Command, Cmd } from "@cameleo/cli";
 
 export class SayHelloController {
     @Cmd()

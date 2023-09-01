@@ -35,7 +35,7 @@ export class CliConnexion implements Connexion {
             if (!endpointScope) {
                 return;
             }
-            const middleware = controllerFactory.getInstance(endpointScope.type);
+            const middleware = controllerFactory.getControllerInstance(endpointScope.type);
 
             const args = getMetadata({
                 constructor: endpointScope.type,

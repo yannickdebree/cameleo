@@ -1,6 +1,6 @@
 {
   "name": "@cameleo/http",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -9,13 +9,14 @@
     "test": "echo \"No tests about this package\""
   },
   "dependencies": {
-    "@cameleo/core": "^0.1.0",
+    "@cameleo/core": "0.1.1",
     "ejs": "^3.1.8",
-    "nodemon": "^2.0.16",
     "ts-node": "^10.8.1"
   },
   "devDependencies": {
     "@types/ejs": "^3.1.1",
-    "@types/node": "^17.0.33"
+    "@types/node": "^17.0.33",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2"
   }
 }

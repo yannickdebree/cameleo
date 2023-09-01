@@ -18,7 +18,7 @@ export class HttpConnexionHandler {
             });
 
             this.server.listen(port, () => {
-                this.logger.log(`HTTP connexion ready on port ${port}.`);
+                this.logger.info(`HTTP connexion ready on port ${port}.`);
                 resolve();
             });
         });

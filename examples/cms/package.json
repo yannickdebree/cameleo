@@ -7,10 +7,12 @@
     "publish": "exit 0"
   },
   "dependencies": {
-    "@cameleo/core": "^0.1.0",
-    "@cameleo/http": "^0.1.0",
-    "nodemon": "^2.0.19",
+    "@cameleo/core": "0.1.1",
+    "@cameleo/http": "0.1.1",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

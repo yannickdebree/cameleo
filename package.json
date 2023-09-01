@@ -1,12 +1,17 @@
 {
   "name": "cameleo",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "postinstall": "lerna bootstrap && lerna run build",
+    "postinstall": "lerna run build",
     "lerna": "lerna",
     "test": "lerna run test"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
-  }
+    "lerna": "^7.2.0"
+  },
+  "workspaces": [
+    "./examples/*",
+    "./packages/*"
+  ]
 }

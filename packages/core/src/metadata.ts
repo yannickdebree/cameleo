@@ -4,7 +4,7 @@ export function getMetadata<T, O>({ tag, constructor, propertyKey, defaultValue 
     propertyKey?: string | symbol,
     defaultValue?: T
 }) {
-    let value = !!propertyKey ? Reflect.getMetadata(tag, constructor, propertyKey) : Reflect.getMetadata(tag, constructor);
+    let value = !!propertyKey ? Reflect.getMetadata(tag, constructor as any, propertyKey) : Reflect.getMetadata(tag, constructor as any);
     if (!value && !!defaultValue) {
         value = defaultValue;
     }
@@ -18,8 +18,8 @@ export function setMetadata<T, O>({ tag, constructor, propertyKey, value }: {
     value: T
 }) {
     if (!!propertyKey) {
-        Reflect.defineMetadata(tag, value, constructor, propertyKey);
+        Reflect.defineMetadata(tag, value, constructor as any, propertyKey);
         return;
     }
-    Reflect.defineMetadata(tag, value, constructor);
+    Reflect.defineMetadata(tag, value, constructor as any);
 }
