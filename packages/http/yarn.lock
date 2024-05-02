@@ -2,12 +2,13 @@
 # yarn lockfile v1
 
 
-"@cameleo/core@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@cameleo/core/-/core-0.1.0.tgz#be7e6fb540f99d4c61ba658d697931b9365c1cff"
-  integrity sha512-Tyu8d77m4aGyGRldFht9IYKukRHa2kJBXJBm826WpWTRh2Z7omALqYYRhgTkQRQH5tFHmKcwDP5D68bi0prPDQ==
+"@cameleo/core@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@cameleo/core/-/core-0.1.1.tgz#22c0195a63716c880bbc7b5602082465881fd297"
+  integrity sha512-iQVBVc/lQLOgg2izL7RyNm+Kk0/mT9oCpHBEmLj+g4ClMajPi4JjScB1VPYuk+W8bN0vxgxFurqtJXoa8Sx/xA==
   dependencies:
     reflect-metadata "^0.1.13"
+    ts-node "^10.8.1"
     typedi "^0.10.0"
 
 "@cspotcode/source-map-support@^0.8.0":
@@ -194,10 +195,10 @@ diff@^4.0.1:
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
-ejs@^3.1.8:
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.8.tgz#758d32910c78047585c7ef1f92f9ee041c1c190b"
-  integrity sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==
+ejs@^3.1.10:
+  version "3.1.10"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.10.tgz#69ab8358b14e896f80cc39e62087b88500c3ac3b"
+  integrity sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==
   dependencies:
     jake "^10.8.5"
 
